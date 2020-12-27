@@ -1,0 +1,178 @@
+@import url("https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;700&display=swap");
+
+@tailwind base;
+
+button:focus {
+  outline: none;
+}
+
+@tailwind components;
+
+.wrapper-game {
+  @apply w-896;
+  @apply mx-auto;
+  @apply pt-5;
+}
+.aling-center {
+  @apply flex;
+  @apply justify-between;
+  @apply items-center;
+}
+.wrapper-form {
+  @apply flex;
+  @apply justify-center;
+  @apply items-center;
+  @apply h-screen;
+}
+.wrapper-btn {
+  @apply border;
+  @apply rounded-lg;
+  @apply bg-gradient-to-b;
+  @apply p-0.5;
+  @apply pb-1;
+}
+.wrapper-btn-white {
+  @apply wrapper-btn;
+  @apply from-white-200;
+  @apply to-white-300;
+}
+.wrapper-btn-green {
+  @apply wrapper-btn;
+  @apply from-green-100;
+  @apply to-green-100;
+}
+.wrapper-btn-yellow {
+  @apply wrapper-btn;
+  @apply from-yellow-300;
+  @apply to-yellow-400;
+}
+.wrapper-btn-red {
+  @apply wrapper-btn;
+  @apply from-red-100;
+  @apply to-red-200;
+}
+.wrapper-btn:active {
+  @apply p-0.5;
+}
+.btn {
+  @apply w-full;
+  @apply h-44;
+  @apply text-blue-300;
+  @apply text-opacity-56;
+  @apply font-medium;
+  @apply rounded-lg;
+  @apply bg-gradient-to-b;
+}
+.btn-white {
+  @apply btn;
+  @apply from-white;
+  @apply to-white-100;
+}
+.btn-green {
+  @apply btn;
+  @apply from-green-200;
+  @apply to-green-300;
+}
+.btn-yellow {
+  @apply btn;
+  @apply from-yellow-100;
+  @apply to-yellow-200;
+}
+.btn-red {
+  @apply btn;
+  @apply from-red-300;
+  @apply to-red-400;
+}
+.title-0 {
+  @apply text-white;
+  @apply text-fs24;
+  @apply font-bold;
+}
+.title-1 {
+  @apply title-0;
+  @apply text-shadow-black-56;
+}
+.title-2 {
+  @apply text-fs18;
+  @apply font-bold;
+  @apply text-blue-200;
+}
+.input-text,
+.input-password {
+  @apply px-5;
+  @apply w-272;
+  @apply h-9;
+  @apply rounded-md;
+  @apply border-t-4;
+  @apply border-blue-100;
+}
+.text-a {
+  @apply text-white;
+  @apply text-fs14;
+  @apply text-shadow-black-56;
+  @apply cursor-pointer;
+}
+.text-3 {
+  @apply text-white;
+  @apply text-fs12;
+  @apply font-bold;
+  @apply text-shadow-black-30;
+}
+.wrapper-result {
+  @apply h-8;
+  @apply bg-blue-100;
+  @apply rounded;
+  @apply border;
+  @apply w-140;
+}
+.result {
+  @apply flex;
+  @apply items-center;
+  @apply bg-white;
+  @apply text-blue-300;
+  @apply text-fs14;
+  @apply pl-2.5;
+  @apply h-26;
+  @apply mt-1;
+  @apply rounded;
+}
+.ck-result {
+  @apply text-white;
+  @apply bg-green;
+}
+.footer-game {
+  @apply bg-blue-500;
+  @apply h-75;
+  @apply aling-center;
+  @apply pl-5;
+  @apply pr-7;
+}
+/* @apply ; */
+@tailwind utilities;
+
+.text-shadow-black-56 {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.56);
+}
+.text-shadow-black-30 {
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+.balck-square {
+  border-top: 339px solid #020e43;
+  border-right: 60px solid transparent;
+}
+.balck-square-sub {
+  border-top: 339px solid #145bc6;
+  border-right: 60px solid transparent;
+}
+#scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+#scrollbar::-webkit-scrollbar-track {
+  border-radius: 4px;
+  background: rgba(2, 14, 67, 0.56);
+}
+#scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(2, 14, 67, 0.56);
+}
