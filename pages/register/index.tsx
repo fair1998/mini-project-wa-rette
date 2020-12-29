@@ -12,15 +12,18 @@ import Button from "../../components/Button";
 // };
 
 const Register: NextPage = () => {
+  console.log("Register");
   const router = useRouter();
 
   const [username, setUsername] = useState<String>("");
   const [password, setPassword] = useState<String>("");
   const [repassword, setRepassword] = useState<String>("");
-
+  // console.log("username", username);
+  // console.log("Register", password);
+  // console.log("repassword", repassword);
   const formSubmit = async () => {
     if (password === repassword) {
-      Axios.post("https://roulette.ap.ngrok.io/users", {
+      await Axios.post("https://roulette.ap.ngrok.io/users", {
         username: username,
         password: password,
       })
@@ -37,7 +40,7 @@ const Register: NextPage = () => {
 
   return (
     <DefaultLayout>
-      <div className="wrapper-form">
+      <div className="align-center h-screen">
         <div>
           <div className="title-1 mb-2">Register</div>
           <div className="title-2 mb-6">ลงทะเบียน</div>
@@ -70,19 +73,21 @@ const Register: NextPage = () => {
             />
           </div>
 
-          <Button type="yellow" width={272}>
+          <Button onClick={formSubmit} type="yellow" width={272}>
             Sign up
           </Button>
 
           <div className="text-center mt-5">
-            <a
-              className="text-a"
-              onClick={() => {
-                router.push({ pathname: "/login" });
-              }}
-            >
+            <a className="text-a">
               Already have an account,
-              <span className="text-yellow"> Sign in</span>
+              <span
+                onClick={() => {
+                  router.push({ hostname: "/login" });
+                }}
+                className="text-yellow"
+              >
+                Sign in
+              </span>
             </a>
           </div>
         </div>

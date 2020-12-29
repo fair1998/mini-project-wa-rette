@@ -6,6 +6,9 @@ module.exports = {
       prompt: ["Prompt", "sans-serif"],
     },
     colors: {
+      black: {
+        DEFAULT: "#00010F",
+      },
       white: {
         DEFAULT: "#ffffff",
         100: "#DCE5FA",
@@ -19,6 +22,8 @@ module.exports = {
         300: "#020E43",
         400: "#145BC6",
         500: "#0A2F7C",
+        600: "#00044C",
+        700: "#0D3474",
       },
       green: {
         DEFAULT: "#26C5A0",
@@ -43,6 +48,7 @@ module.exports = {
       },
     },
     fontSize: {
+      fs9: "9px",
       fs12: "12px",
       fs14: "14px",
       fs18: "18px",
@@ -62,14 +68,21 @@ module.exports = {
       width: {
         86: "86px",
         140: "140px",
+        188: "188px",
         190: "190px",
+        198: "198px",
+        200: "200px",
         272: "272px",
         314: "314px",
+        330: "330px",
+        380: "380px",
         455: "455px",
+        760: "760px",
         896: "896px",
       },
       height: {
         26: "26px",
+        30: "30px",
         44: "44px",
         75: "75px",
         260: "260px",
@@ -79,6 +92,9 @@ module.exports = {
         56: "0.56",
       },
       inset: {
+        1: "1px",
+        "-43": "-43px",
+        "-44": "-44px",
         50: "50px",
       },
       gap: {

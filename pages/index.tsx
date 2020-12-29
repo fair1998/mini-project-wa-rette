@@ -1,53 +1,50 @@
 import { NextPage } from "next";
-import React from "react";
+import React, { useState } from "react";
 import BalckSquare from "../components/BalckSquare";
 import Button from "../components/Button";
 import DefaultLayout from "../components/layout/DefaultLayout";
-import styled from "styled-components";
-import Flame from "../components/Flame";
-
-const BuleMain = styled.div`
-  position: relative;
-  border-top: 48px solid #020e43;
-  border-right: 15px solid transparent;
-  width: 190px;
-  filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.16));
-`;
-
-const RedMain = styled.div`
-  position: absolute;
-  width: 188px;
-  top: -47px;
-  left: 1px;
-  border-top: 46px solid #f63c1f;
-  border-right: 15px solid transparent;
-`;
-
-const YellowMain = styled.div`
-  position: absolute;
-  border-top: 46px solid #020e43;
-  border-right: 10px solid transparent;
-  width: 29px;
-  top: -46px;
-  left: 0px;
-`;
-
-const YellowSub = styled.div`
-  position: absolute;
-  border-top: 46px solid #fde232;
-  border-right: 10px solid transparent;
-  width: 28px;
-  top: -46px;
-  left: 0px;
-`;
-
-const SVGMain = styled.div`
-  position: absolute;
-  top: -43px;
-  left: 3px;
-`;
+import HotCold from "../components/HotCold";
+import BlockNumber from "../components/BlockNumber";
+import BeadRoad from "../components/BeadRoad";
+import MiniGame from "../components/MiniGame";
+import LastSpin from "../components/LastSpin";
+import { useRouter } from "next/dist/client/router";
+const colorBlock = require("../components/data/colorBlock.json");
 
 const IndexPage: NextPage = () => {
+  console.log("IndexPage");
+  const router = useRouter();
+  // const [result, setResult] = useState<number>();
+  const [rolling, setRolling] = useState<boolean>(false);
+  const [arr, setArr] = useState<any>([]);
+  const spinTime = 5;
+  async function roll() {
+    if (rolling === false) {
+      setRolling(true);
+      const scroll = document.getElementById("scroll");
+      const sum = Math.floor(Math.random() * (18 + 1));
+      let col = null;
+      for (let index = 0; index < colorBlock.length; index++) {
+        if (sum === colorBlock[index].number) {
+          col = colorBlock[index].color;
+          break;
+        }
+      }
+
+      scroll.style.transition = "margin " + spinTime + "s ease";
+      scroll.style.marginLeft =
+        "calc(180px - 20px - (760px * 6) - (40px * " + sum + "))";
+
+      await setTimeout(function () {
+        scroll.style.transition = "margin 0s ease";
+        scroll.style.marginLeft =
+          "calc(180px - 20px - (760px * 1) - (40px * " + sum + "))";
+        setRolling(false);
+      }, spinTime * 1000);
+      arr.push({ number: sum, color: col });
+    }
+  }
+
   return (
     <DefaultLayout>
       <div className="wrapper-game">
@@ -59,45 +56,82 @@ const IndexPage: NextPage = () => {
               alt="logoWaRette"
             />
             <div className="absolute top-20 left-5">
-              <div className="flex flex-row">
-                <BuleMain>
-                  <RedMain>
-                    <YellowMain>
-                      <YellowSub>
-                        <SVGMain>
-                          <Flame />
-                        </SVGMain>
-                      </YellowSub>
-                    </YellowMain>
-                  </RedMain>
-                </BuleMain>
-                <div>222</div>
+              <div className="flex flex-row gap-4">
+                <HotCold type="hot">
+                  <div className="flex flex-row gap-1">
+                    <BlockNumber size="xs" color="red">
+                      18
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="black">
+                      2
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="black">
+                      11
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="black">
+                      13
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="red">
+                      5
+                    </BlockNumber>
+                  </div>
+                </HotCold>
+                <HotCold type="cold">
+                  <div className="flex flex-row gap-1">
+                    <BlockNumber size="xs" color="red">
+                      18
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="black">
+                      2
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="black">
+                      11
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="black">
+                      13
+                    </BlockNumber>
+                    <BlockNumber size="xs" color="red">
+                      5
+                    </BlockNumber>
+                  </div>
+                </HotCold>
               </div>
+              <div className="mt-4 title-3">BEAD ROAD</div>
+              <BeadRoad data={arr} />
             </div>
           </BalckSquare>
           <div className="max-w-430 w-full pl-10 pt-5">
-            <div className="left-5 top-5 text-3 mb-2.5">Player Bet keys</div>
-            <div
-              id="scrollbar"
-              className="w-314 h-260 grid grid-cols-2 gap-x-10 gap-y-6 overflow-y-auto pr-5"
-            ></div>
+            <LastSpin colorBlock={colorBlock} />
+            <MiniGame />
           </div>
         </div>
         <div className="footer-game">
           <div className="flex items-center">
-            <Button type="red" width={64}>
+            <Button
+              onClick={() => {
+                router.push({ pathname: "/login" });
+              }}
+              type="red"
+              width={64}
+            >
               Exit
             </Button>
             <div className="title-0 ml-5">Roberto Capuchino</div>
           </div>
           <div className="flex gap-x-2.5 items-center">
-            <Button type="white" width={106}>
+            <Button
+              onClick={() => {
+                router.push({ pathname: "/history" });
+              }}
+              type="white"
+              width={106}
+            >
               Bet Detail
             </Button>
             <Button type="green" width={76}>
               Undo
             </Button>
-            <Button type="yellow" width={150}>
+            <Button onClick={roll} type="yellow" width={150}>
               Spin
             </Button>
           </div>

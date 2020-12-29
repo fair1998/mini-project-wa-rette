@@ -11,6 +11,7 @@ import Button from "../../components/Button";
 
 const Login: NextPage = () => {
   const router = useRouter();
+  console.log("Login");
 
   // function formSubmit<pformSubmit>() {
   //   let aa = "55";
@@ -33,11 +34,10 @@ const Login: NextPage = () => {
 
   return (
     <DefaultLayout>
-      <div className="wrapper-form">
+      <div className="align-center h-screen">
         <div>
           <div className="title-1 mb-2">Login</div>
           <div className="title-2 mb-6">เข้าสู่ระบบ</div>
-
           <div className="mb-4">
             <input
               type="text"
@@ -46,7 +46,6 @@ const Login: NextPage = () => {
               className="input-text"
             />
           </div>
-
           <div className="mb-8">
             <input
               type="password"
@@ -55,8 +54,7 @@ const Login: NextPage = () => {
               className="input-password"
             />
           </div>
-
-          <div className="aling-center">
+          <div className="align-between">
             <a
               className="text-a"
               onClick={() => {
@@ -65,12 +63,11 @@ const Login: NextPage = () => {
             >
               Register
             </a>
-
             <Button
               type="green"
               width={86}
               onClick={() => {
-                router.push({ pathname: "/history" });
+                router.push({ pathname: "/" });
               }}
             >
               Sign in

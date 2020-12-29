@@ -1,0 +1,25 @@
+<svg id="Chip" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.154" height="27" viewBox="0 0 23.154 27">
+  <defs>
+    <filter id="Ellipse_156" x="0" y="1.846" width="23.154" height="25.154" filterUnits="userSpaceOnUse">
+      <feOffset dx="1" dy="3" input="SourceAlpha"/>
+      <feGaussianBlur result="blur"/>
+      <feFlood flood-color="#020e43" flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Ellipse_156)">
+    <g id="Ellipse_156-2" data-name="Ellipse 156" transform="translate(0 1.85)" fill="#f7b628" stroke="#f7b628" stroke-width="1">
+      <circle cx="11.077" cy="11.077" r="11.077" stroke="none"/>
+      <circle cx="11.077" cy="11.077" r="10.577" fill="none"/>
+    </g>
+  </g>
+  <g id="Ellipse_155" data-name="Ellipse 155" fill="#fde232" stroke="#f7b628" stroke-width="1">
+    <circle cx="11.077" cy="11.077" r="11.077" stroke="none"/>
+    <circle cx="11.077" cy="11.077" r="10.577" fill="none"/>
+  </g>
+  <g id="Ellipse_157" data-name="Ellipse 157" transform="translate(3.692 3.692)" fill="#fff" stroke="#f7b628" stroke-width="1">
+    <circle cx="7.385" cy="7.385" r="7.385" stroke="none"/>
+    <circle cx="7.385" cy="7.385" r="6.885" fill="none"/>
+  </g>
+</svg>
