@@ -1,9 +1,10 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/dist/client/router";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Axios from "axios";
 import { useState } from "react";
 import Button from "../../components/Button";
+import withAuthentication from "../../components/constant/withAuthentication";
 
 // type LoginResponse = {
 //   username: string;
@@ -18,9 +19,6 @@ const Register: NextPage = () => {
   const [username, setUsername] = useState<String>("");
   const [password, setPassword] = useState<String>("");
   const [repassword, setRepassword] = useState<String>("");
-  // console.log("username", username);
-  // console.log("Register", password);
-  // console.log("repassword", repassword);
   const formSubmit = async () => {
     if (password === repassword) {
       await Axios.post("https://roulette.ap.ngrok.io/users", {
@@ -29,6 +27,7 @@ const Register: NextPage = () => {
       })
         .then(function (response) {
           console.log(response);
+          window.location.reload();
         })
         .catch(function (error) {
           console.log(error);
@@ -82,7 +81,7 @@ const Register: NextPage = () => {
               Already have an account,
               <span
                 onClick={() => {
-                  router.push({ hostname: "/login" });
+                  router.push({ pathname: "/login" });
                 }}
                 className="text-yellow"
               >
@@ -94,6 +93,13 @@ const Register: NextPage = () => {
       </div>
     </DefaultLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  await withAuthentication(ctx, { allowGuest: true });
+  return {
+    props: {},
+  };
 };
 
 export default Register;

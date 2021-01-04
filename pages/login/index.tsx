@@ -1,37 +1,37 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import { useRouter } from "next/dist/client/router";
 import Axios from "axios";
 import Button from "../../components/Button";
+import { useState } from "react";
+import { setCookie } from "nookies";
+import { ACCESS_TOKEN } from "../../components/constant/cookie";
+import withAuthentication from "../../components/constant/withAuthentication";
 
-// type LoginResponse = {
-//   username: string;
-//   password: string;
-// };
+type LoginResponse = {
+  accessToken: string;
+};
 
 const Login: NextPage = () => {
   const router = useRouter();
   console.log("Login");
+  const [username, setUsername] = useState<String>("");
+  const [password, setPassword] = useState<String>("");
 
-  // function formSubmit<pformSubmit>() {
-  //   let aa = "55";
-  //   let bb = "56";
-  //   if (aa === bb) {
-  //     const res = Axios.post<LoginResponse>("/user", {
-  //       username: "Fred",
-  //       password: "Flintstone",
-  //     })
-  //       .then(function (response) {
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   } else {
-  //     console.log("error");
-  //   }
-  // }
-
+  const formSubmit = async () => {
+    const { data } = await Axios.post<LoginResponse>(
+      "https://roulette.ap.ngrok.io/auth/login",
+      {
+        username: username,
+        password: password,
+      }
+    );
+    setCookie(null, ACCESS_TOKEN, data.accessToken, {
+      path: "/",
+      expires: null,
+    });
+    window.location.reload();
+  };
   return (
     <DefaultLayout>
       <div className="align-center h-screen">
@@ -43,6 +43,7 @@ const Login: NextPage = () => {
               type="text"
               name="username"
               placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
               className="input-text"
             />
           </div>
@@ -51,6 +52,7 @@ const Login: NextPage = () => {
               type="password"
               name="password"
               placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
               className="input-password"
             />
           </div>
@@ -63,13 +65,7 @@ const Login: NextPage = () => {
             >
               Register
             </a>
-            <Button
-              type="green"
-              width={86}
-              onClick={() => {
-                router.push({ pathname: "/" });
-              }}
-            >
+            <Button type="green" width={86} onClick={formSubmit}>
               Sign in
             </Button>
           </div>
@@ -77,6 +73,14 @@ const Login: NextPage = () => {
       </div>
     </DefaultLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  await withAuthentication(ctx, { guestOnly: true });
+
+  return {
+    props: {},
+  };
 };
 
 export default Login;

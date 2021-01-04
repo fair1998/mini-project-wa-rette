@@ -1,6 +1,15 @@
 import { FunctionComponent } from "react";
+const actionBut = require("./data/actionBut.json");
 
-const MiniGame: FunctionComponent = () => {
+
+interface IProps {
+  onClick: (p: number, i: string) => void;
+  value: any;
+}
+
+const BoardGame: FunctionComponent<IProps> = (props) => {
+  const { onClick, value } = props;
+
   return (
     <div className="relative ">
       <div className="absolute grid grid-cols-8 gap-1 text-fs12 w-380">
@@ -38,8 +47,30 @@ const MiniGame: FunctionComponent = () => {
         <div className="btn-gmae bg-blue">Odd</div>
         <div className="btn-gmae bg-blue">10-18</div>
       </div>
+
+      {actionBut.map((val: any, i: number) => (
+
+        <button
+          key={i}
+          id={val.value}
+          className="absolute align-center z-20"
+          style={{
+            top: val.but.top,
+            left: val.but.left,
+            width: val.but.width,
+            height: val.but.height,
+          }}
+          onClick={() => onClick(i, val.value)}
+        > 
+        
+        {value.chip[i] && (
+          <img className="z-40" width={18} src="/Chip.svg" alt="Chip" />
+        )}
+        
+        </button>
+      ))}
     </div>
   );
 };
 
-export default MiniGame;
+export default BoardGame;

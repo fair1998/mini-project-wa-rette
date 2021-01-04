@@ -166,6 +166,8 @@ button:focus {
   @apply flex;
   @apply justify-center;
   @apply items-center;
+  @apply text-fs12;
+  @apply font-bold;
   @apply text-white;
   @apply border-blue-600;
   @apply rounded;

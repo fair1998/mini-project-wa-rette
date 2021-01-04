@@ -1,30 +1,39 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import React from "react";
 import Button from "../../components/Button";
-import BalckSquare from "../../components/BalckSquare";
+import BlockSquare from "../../components/BlockSquare";
 import { useRouter } from "next/dist/client/router";
+import withAuthentication from "../../components/constant/withAuthentication";
 
-const History: NextPage = () => {
+interface IProps {
+  // router: any;
+}
+
+const History: NextPage<IProps> = (props) => {
   console.log("History");
   const router = useRouter();
   const results = [];
 
   for (let index = 0; index < 51; index++) {
-    const res = Math.floor(Math.random() * 2);
+    const check = Math.floor(Math.random() * 2);
     const element = (
       <div key={index} className="wrapper-result ">
-        <div className={`result ${res ? "ck-result" : ""}`}>STRAIGHTUPx3</div>
+        {/* <div className={`result ${check && "ck-result"}`}>REDx3</div> */}
+        <div className={`result "}`}>REDx3</div>
       </div>
     );
     results.push(element);
   }
 
+  // const url: any = router.query.data;
+  // console.log(JSON.parse(url));
+
   return (
     <DefaultLayout>
       <div className="wrapper-game">
         <div className="flex flex-row">
-          <BalckSquare>
+          <BlockSquare>
             <div className="absolute left-5 top-5 title-3">Bet keys</div>
             <div
               id="scrollbar"
@@ -32,7 +41,8 @@ const History: NextPage = () => {
             >
               {results}
             </div>
-          </BalckSquare>
+          </BlockSquare>
+
           <div className="max-w-430 w-full pl-10 pt-5">
             <div className="left-5 top-5 title-3 mb-2.5">Player Bet keys</div>
             <div
@@ -63,6 +73,13 @@ const History: NextPage = () => {
       </div>
     </DefaultLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  withAuthentication(ctx);
+  return {
+    props: {},
+  };
 };
 
 export default History;
