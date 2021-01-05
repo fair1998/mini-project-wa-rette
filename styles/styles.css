@@ -126,7 +126,7 @@ button:focus {
   @apply bg-blue-100;
   @apply rounded;
   @apply border;
-  @apply w-140;
+  @apply w-155;
 }
 .block-number {
   @apply flex;

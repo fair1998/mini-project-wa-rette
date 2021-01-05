@@ -4,10 +4,10 @@ import { ACCESS_TOKEN } from "./cookie";
 import Axios from "axios";
 
 export interface IUser {
-  uid: string;
+  _id: string;
   username: string;
-  iat: string;
-  exp: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface WithAuthenticationOptions {
@@ -26,36 +26,6 @@ export default async function withAuthentication(
 ) {
   const { req } = ctx;
   const { allowGuest, guestOnly } = options;
-
-  // try {
-  //   const cookies = parseCookies(ctx);
-
-  //   if (cookies[ACCESS_TOKEN] && guestOnly) {
-  //     throw new Error("GuestOnly");
-  //   }
-
-  //   if (allowGuest) {
-  //     return null;
-  //   }
-
-  //   if (!cookies[ACCESS_TOKEN]) {
-  //     throw new Error("Unauthorized");
-  //   }
-  //   const { data: user, status } = await Axios.get<IUser>(
-  //     "https://roulette.ap.ngrok.io/me",
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer " + cookies[ACCESS_TOKEN],
-  //       },
-  //     }
-  //   );
-  //   console.log("user", user);
-  //   console.log("status", status);
-  //   if (status === 200) {
-  //     return user;
-  //   }
-
-  //   throw new Error("Unauthorized");
 
   try {
     const cookies = parseCookies(ctx);
@@ -80,7 +50,7 @@ export default async function withAuthentication(
         },
       }
     );
-
+    console.log("userxxxxxxxxxxxxxxx", user);
     if (status === 200) {
       return user;
     }
@@ -97,23 +67,20 @@ export default async function withAuthentication(
 
     if (error.message === "GuestOnly") {
       ctx.res.statusCode = 307;
-      console.log("GuestOnly");
       ctx.res.setHeader("Location", ctx.query.forward || "/");
       return null;
     }
 
     destroyCookie(ctx, ACCESS_TOKEN);
 
-    console.log("error.message", error.message);
-    if (req.url?.match(/^(\/){0,1}\?forward=.*$/)) {
-      console.log("111");
+    if (req.url?.match(/^(\/){0,1}login/)) {
       return null;
     }
 
     const forward = req.url || "/";
     ctx.res.statusCode = 307;
-    ctx.res.setHeader("Location", `/?forward=${forward}`);
-    console.log("222");
+    ctx.res.setHeader("Location", `/login?forward=${forward}`);
+    console.log("errorsssssss", error.message);
     return null;
   }
 }

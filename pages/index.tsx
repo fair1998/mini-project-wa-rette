@@ -15,11 +15,11 @@ import HistoryDetail from "../components/HistoryDetail";
 import BlockHotCold from "../components/BlockHotCold";
 const colorBlock = require("../components/data/colorBlock.json");
 
-interface IProps {
+interface IndexPageProps {
   username: string;
 }
 
-const IndexPage: NextPage<IProps> = (props) => {
+const IndexPage: NextPage<IndexPageProps> = (props) => {
   const { username } = props;
   const router = useRouter();
 
@@ -84,7 +84,7 @@ const IndexPage: NextPage<IProps> = (props) => {
             newBeadSum[plusSum].sum = beadSum[plusSum].sum + 1;
             setBeadSum(newBeadSum);
           }
-         
+
           setDetail(newArr);
           setRolling(false);
           setFinalBet(current);
@@ -203,13 +203,12 @@ const IndexPage: NextPage<IProps> = (props) => {
   );
 };
 
-// export const getidServerSeProps: GetServerSideProps = async (ctx) => {
-//   const res = withAuthentication(ctx);
-//   const username = (await res).username;
-//   console.log("login");
-//   return {
-//     props: { username },
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const res = withAuthentication(ctx);
+  const username = (await res).username;
+  return {
+    props: { username },
+  };
+};
 
 export default IndexPage;

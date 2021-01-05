@@ -3,7 +3,7 @@ import { destroyCookie } from "nookies";
 import { ACCESS_TOKEN } from "../../components/constant/cookie";
 
 const Logout: NextPage = () => {
-  return <div></div>;
+  return <></>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

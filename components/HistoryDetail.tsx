@@ -13,7 +13,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
   const { show, hide, detail, finalBet } = props;
 
   const results = [];
- 
+
   finalBet.map((valFinalBet: any, i: number) => {
     const check = detail.find((valDetail: string) => {
       return valDetail === valFinalBet;
@@ -51,7 +51,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
           <div className="absolute left-5 top-5 title-3">Bet keys</div>
           <div
             id="scrollbar"
-            className="absolute left-5 top-50 w-314 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
+            className="absolute left-5 top-50 w-340 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
             {detail.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">
@@ -65,7 +65,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
           <div className="left-5 top-5 title-3 mb-2.5">Player Bet keys</div>
           <div
             id="scrollbar"
-            className="w-314 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
+            className="w-340 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
             {/* {finalBet.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">

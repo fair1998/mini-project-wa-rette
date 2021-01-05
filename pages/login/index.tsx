@@ -76,8 +76,7 @@ const Login: NextPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  await withAuthentication(ctx, { allowGuest: true });
-  console.log("Server login");
+  await withAuthentication(ctx, { guestOnly: true });
   return {
     props: {},
   };
