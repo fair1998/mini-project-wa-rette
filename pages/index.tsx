@@ -84,16 +84,12 @@ const IndexPage: NextPage<IProps> = (props) => {
             newBeadSum[plusSum].sum = beadSum[plusSum].sum + 1;
             setBeadSum(newBeadSum);
           }
-          // else {
-          //   setBeadSum(
-          //     newBeadSum.concat({ number: award, color: colorbut, sum: 1 })
-          //   );
-          // }
+         
           setDetail(newArr);
           setRolling(false);
           setFinalBet(current);
           setHistory([[]]);
-          // show();
+          show();
         }, 5 * 1000);
       }
     }
@@ -198,7 +194,7 @@ const IndexPage: NextPage<IProps> = (props) => {
         </div>
       </div>
       <HistoryDetail
-        isShow={showDetail}
+        show={showDetail}
         hide={hide}
         detail={detail}
         finalBet={finalBet}

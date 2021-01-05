@@ -3,19 +3,40 @@ import BlockSquare from "./BlockSquare";
 import Button from "./Button";
 
 interface IProps {
-  isShow: any;
-  hide: any;
+  show: any;
+  hide: () => void;
   detail: any;
   finalBet: [];
 }
 
 const HistoryDetail: FunctionComponent<IProps> = (props) => {
-  const { isShow, hide, detail, finalBet } = props;
+  const { show, hide, detail, finalBet } = props;
+
+  const results = [];
+ 
+  finalBet.map((valFinalBet: any, i: number) => {
+    const check = detail.find((valDetail: string) => {
+      return valDetail === valFinalBet;
+    });
+    if (check) {
+      results.push(
+        <div key={i} className="wrapper-result ">
+          <div className="result ck-result">{valFinalBet}</div>
+        </div>
+      );
+    } else {
+      results.push(
+        <div key={i} className="wrapper-result ">
+          <div className="result">{valFinalBet}</div>
+        </div>
+      );
+    }
+  });
   return (
     <div
       className="bg-main_image bg-blue"
       style={{
-        display: isShow ? "block" : "none",
+        display: show ? "block" : "none",
         zIndex: 100,
         width: 896,
         height: 414,
@@ -46,11 +67,12 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
             id="scrollbar"
             className="w-314 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
-            {finalBet.map((val: string, i: number) => (
+            {/* {finalBet.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">
                 <div className="result">{val}</div>
               </div>
-            ))}
+            ))} */}
+            {results}
           </div>
         </div>
       </div>
