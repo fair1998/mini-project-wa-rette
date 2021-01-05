@@ -1,15 +1,15 @@
 import { FunctionComponent } from "react";
 const actionBut = require("./data/actionBut.json");
 
-
 interface IProps {
-  onClick: (p: number, i: string) => void;
+  onClick: (i: number, val: string) => void;
   value: any;
+  rolling: boolean;
 }
 
 const BoardGame: FunctionComponent<IProps> = (props) => {
   const { onClick, value } = props;
-
+  // console.log("value2", value);
   return (
     <div className="relative ">
       <div className="absolute grid grid-cols-8 gap-1 text-fs12 w-380">
@@ -49,7 +49,6 @@ const BoardGame: FunctionComponent<IProps> = (props) => {
       </div>
 
       {actionBut.map((val: any, i: number) => (
-
         <button
           key={i}
           id={val.value}
@@ -61,12 +60,10 @@ const BoardGame: FunctionComponent<IProps> = (props) => {
             height: val.but.height,
           }}
           onClick={() => onClick(i, val.value)}
-        > 
-        
-        {value.chip[i] && (
-          <img className="z-40" width={18} src="/Chip.svg" alt="Chip" />
-        )}
-        
+        >
+          {value.chip[i] && (
+            <img className="z-40" width={18} src="/Chip.svg" alt="Chip" />
+          )}
         </button>
       ))}
     </div>

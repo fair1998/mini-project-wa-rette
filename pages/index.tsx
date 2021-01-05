@@ -13,55 +13,54 @@ import withAuthentication from "../components/constant/withAuthentication";
 import Axios from "axios";
 import { ACCESS_TOKEN } from "../components/constant/cookie";
 import { parseCookies } from "nookies";
+import HistoryDetail from "../components/HistoryDetail";
 const colorBlock = require("../components/data/colorBlock.json");
 
 interface IProps {
-  username: string;
+  // username: string;
 }
 
 const IndexPage: NextPage<IProps> = (props) => {
-  // console.log("IndexPage");
-  const { username } = props;
+  // const { username } = props;
   const router = useRouter();
 
-  const [history, setHistory] = useState<any>([{ chip: [] }]);
-  // const [history, setHistory] = useState<any>({ chip: [] });
-  const [step, setStep] = useState<number>(0);
+  const [showDetail, setShowDetail] = useState<boolean>(false);
 
+  const [history, setHistory] = useState<any>([{ chip: [] }]);
+  const [step, setStep] = useState<number>(0);
   const [rolling, setRolling] = useState<boolean>(false);
-  const [arr, setArr] = useState<any>([]);
-  const [detail, setDetail] = useState<any>({});
+  const [bead, setBead] = useState<any>([]);
+  const [detail, setDetail] = useState<any>([]);
+
+  const current = history[step];
+  // console.log("current", current);
 
   async function roll() {
     if (rolling === false) {
       setRolling(true);
 
-      Axios.get("https://roulette.ap.ngrok.io/roulette/result", {
-        headers: {
-          Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
-        },
-      })
-        .then(function (response) {
-          // console.log(response);
-          setDetail(response.data);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      const arr = []
-      for (let v of history.chip) {
-        if (v) {
-          arr.push(v)
+      const { data } = await Axios.get(
+        "https://roulette.ap.ngrok.io/roulette/result",
+        {
+          headers: {
+            Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
+          },
         }
-      }
-      const scroll = document.getElementById("scroll");
-      const award = detail.winner.substring(11);
-      let col = null;
+      );
 
-      for (let index = 0; index < colorBlock.length; index++) {
-        if (award === colorBlock[index].number) {
-          col = colorBlock[index].color;
+      let newArr = [];
+      newArr.push(data.winner);
+      data.addition.map((v: any) => {
+        newArr.push(v);
+      });
+
+      const scroll = document.getElementById("scroll");
+      const award = data.winner.substring(11);
+      let colorbut = null;
+
+      for (let i = 0; i < colorBlock.length; i++) {
+        if (award === colorBlock[i].number) {
+          colorbut = colorBlock[i].color;
           break;
         }
       }
@@ -74,73 +73,46 @@ const IndexPage: NextPage<IProps> = (props) => {
         scroll.style.transition = "margin 0s ease";
         scroll.style.marginLeft =
           "calc(180px - 20px - (760px * 1) - (40px * " + award + "))";
-        let copyArr = arr;
-        copyArr.push({ number: award, color: col });
-        setArr(copyArr);
+
+        setBead(bead.concat({ number: award, color: colorbut }));
+        setDetail(newArr);
         setRolling(false);
+        show();
       }, 5 * 1000);
     }
   }
-
-  const current = history[step];
-  // console.log(current) 
-  // console.log('history', history)
-
+  // console.log("history", history);
   const handleClick = (i: number, val: string) => {
     const newHistory = history.slice(0, step + 1);
-    // console.log('newHistory', newHistory)
+    // console.log("newHistory", newHistory);
 
     const current = newHistory[newHistory.length - 1];
-    // console.log('current', current)
+    // console.log("current", current);
 
     const chip = current.chip.slice();
-    // console.log('chip', chip)
+    console.log("chip1", chip);
 
     chip[i] = val;
-    // console.log('chip2', chip)
+    // console.log("chip2", chip);
 
-    setHistory(
-      newHistory.concat([
-        {
-          chip: chip,
-        },
-      ])
-    );
-    // console.log('history', history)
+    setHistory(newHistory.concat([{ chip: chip }]));
     setStep(newHistory.length);
   };
-  // const handleClick = (i: number, val: string) => {
-  //   const chip = history.chip;
-  //   chip[i] = val;
-  //   setHistory({ chip: chip });
-  //   console.log(val)
-  // };
-  // console.log('step', step)
+
   const undo = () => {
     if (step > 0) {
       const reverse = step - 1;
       setStep(reverse);
     }
-
   };
-  // const undo = () => {
-  //   const newArr = { chip: [] };
-  //   setHistory(newArr);
-  // };
 
-  useEffect(() => {
-    Axios.get("https://roulette.ap.ngrok.io/roulette/result", {
-      headers: {
-        Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
-      },
-    })
-      .then(function (response) {
-        setDetail(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
+  const show = () => {
+    setShowDetail(true);
+  };
+
+  const hide = () => {
+    setShowDetail(false);
+  };
 
   return (
     <DefaultLayout>
@@ -194,13 +166,16 @@ const IndexPage: NextPage<IProps> = (props) => {
                 </HotCold>
               </div>
               <div className="mt-4 title-3">BEAD ROAD</div>
-              <BeadRoad data={arr} />
+              <BeadRoad data={bead} />
             </div>
           </BlockSquare>
           <div className="max-w-430 w-full pl-10 pt-5">
             <LastSpin colorBlock={colorBlock} />
-            {/* <BoardGame value={history} onClick={(i, val) => handleClick(i, val)} /> */}
-            <BoardGame value={current} onClick={(i, val) => handleClick(i, val)} />
+            <BoardGame
+              value={current}
+              rolling={rolling}
+              onClick={(i, val) => handleClick(i, val)}
+            />
           </div>
         </div>
         <div className="footer-game">
@@ -214,19 +189,10 @@ const IndexPage: NextPage<IProps> = (props) => {
             >
               Exit
             </Button>
-            <div className="title-0 ml-5">{username}</div>
+            {/* <div className="title-0 ml-5">{username}</div> */}
           </div>
           <div className="flex gap-x-2.5 items-center">
-            <Button
-              onClick={() => {
-                router.push({
-                  pathname: "/history",
-                  // query: { data: JSON.stringify(detail) },
-                });
-              }}
-              type="white"
-              width={106}
-            >
+            <Button onClick={show} type="white" width={106}>
               Bet Detail
             </Button>
 
@@ -239,11 +205,17 @@ const IndexPage: NextPage<IProps> = (props) => {
           </div>
         </div>
       </div>
+      <HistoryDetail
+        isShow={showDetail}
+        hide={hide}
+        detail={detail}
+        chip={current}
+      />
     </DefaultLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getidServerSeProps: GetServerSideProps = async (ctx) => {
   const res = withAuthentication(ctx);
   const username = (await res).username;
   return {

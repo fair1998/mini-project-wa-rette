@@ -61,7 +61,9 @@ export default async function withAuthentication(
       if (req.url?.match(/^(\/){0,1}login/)) {
         return;
       }
+      
       destroyCookie(ctx, ACCESS_TOKEN);
+
       const forward = req.url || "/";
       ctx.res.statusCode = 307;
       ctx.res.setHeader("Location", `/login?forward=${forward}`);

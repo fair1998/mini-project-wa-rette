@@ -14,7 +14,7 @@ type LoginResponse = {
 
 const Login: NextPage = () => {
   const router = useRouter();
-  console.log("Login");
+  // console.log("Login");
   const [username, setUsername] = useState<String>("");
   const [password, setPassword] = useState<String>("");
 

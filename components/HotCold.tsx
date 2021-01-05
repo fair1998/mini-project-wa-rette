@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import Flame from "./Flame";
-import SnowFlake from "./SnowFlake";
+import Flame from "./svg/Flame";
+import SnowFlake from "./svg/SnowFlake";
 
 interface IProps {
   type: "hot" | "cold";
