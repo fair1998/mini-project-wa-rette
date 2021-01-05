@@ -26,20 +26,52 @@ export default async function withAuthentication(
 ) {
   const { req } = ctx;
   const { allowGuest, guestOnly } = options;
+
+  // try {
+  //   const cookies = parseCookies(ctx);
+
+  //   if (cookies[ACCESS_TOKEN] && guestOnly) {
+  //     throw new Error("GuestOnly");
+  //   }
+
+  //   if (allowGuest) {
+  //     return null;
+  //   }
+
+  //   if (!cookies[ACCESS_TOKEN]) {
+  //     throw new Error("Unauthorized");
+  //   }
+  //   const { data: user, status } = await Axios.get<IUser>(
+  //     "https://roulette.ap.ngrok.io/me",
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer " + cookies[ACCESS_TOKEN],
+  //       },
+  //     }
+  //   );
+  //   console.log("user", user);
+  //   console.log("status", status);
+  //   if (status === 200) {
+  //     return user;
+  //   }
+
+  //   throw new Error("Unauthorized");
+
   try {
     const cookies = parseCookies(ctx);
 
-    if (cookies[ACCESS_TOKEN] && guestOnly) {
+    if (guestOnly && cookies[ACCESS_TOKEN]) {
       throw new Error("GuestOnly");
     }
 
     if (allowGuest) {
-      return;
+      return null;
     }
 
     if (!cookies[ACCESS_TOKEN]) {
       throw new Error("Unauthorized");
     }
+
     const { data: user, status } = await Axios.get<IUser>(
       "https://roulette.ap.ngrok.io/me",
       {
@@ -48,34 +80,40 @@ export default async function withAuthentication(
         },
       }
     );
-    console.log("user", user);
-    console.log("status", status);
+
     if (status === 200) {
       return user;
     }
 
     throw new Error("Unauthorized");
   } catch (error) {
-    if (error.message === "Unauthorized" || error.response?.status === 401) {
-      destroyCookie(ctx, ACCESS_TOKEN);
-      if (req.url?.match(/^(\/){0,1}login/)) {
-        return;
-      }
-      
-      destroyCookie(ctx, ACCESS_TOKEN);
-
-      const forward = req.url || "/";
-      ctx.res.statusCode = 307;
-      ctx.res.setHeader("Location", `/login?forward=${forward}`);
-      return;
+    if (
+      !error.message?.match(/GuestOnly|Unauthorized/) &&
+      error.response?.statusText !== "Unauthorized"
+    ) {
+      console.log("[ERROR]", error.message);
+      console.log(error);
     }
 
     if (error.message === "GuestOnly") {
       ctx.res.statusCode = 307;
+      console.log("GuestOnly");
       ctx.res.setHeader("Location", ctx.query.forward || "/");
-      return;
+      return null;
     }
 
-    throw error;
+    destroyCookie(ctx, ACCESS_TOKEN);
+
+    console.log("error.message", error.message);
+    if (req.url?.match(/^(\/){0,1}\?forward=.*$/)) {
+      console.log("111");
+      return null;
+    }
+
+    const forward = req.url || "/";
+    ctx.res.statusCode = 307;
+    ctx.res.setHeader("Location", `/?forward=${forward}`);
+    console.log("222");
+    return null;
   }
 }

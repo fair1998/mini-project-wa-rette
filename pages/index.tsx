@@ -1,108 +1,114 @@
 import { GetServerSideProps, NextPage } from "next";
+import withAuthentication from "../components/constant/withAuthentication";
 import React, { useEffect, useState } from "react";
 import BlockSquare from "../components/BlockSquare";
 import Button from "../components/Button";
 import DefaultLayout from "../components/layout/DefaultLayout";
-import HotCold from "../components/HotCold";
-import BlockNumber from "../components/BlockNumber";
 import BeadRoad from "../components/BeadRoad";
 import BoardGame from "../components/BoardGame";
 import LastSpin from "../components/LastSpin";
 import { useRouter } from "next/dist/client/router";
-import withAuthentication from "../components/constant/withAuthentication";
 import Axios from "axios";
 import { ACCESS_TOKEN } from "../components/constant/cookie";
 import { parseCookies } from "nookies";
 import HistoryDetail from "../components/HistoryDetail";
+import BlockHotCold from "../components/BlockHotCold";
 const colorBlock = require("../components/data/colorBlock.json");
 
 interface IProps {
-  // username: string;
+  username: string;
 }
 
 const IndexPage: NextPage<IProps> = (props) => {
-  // const { username } = props;
+  const { username } = props;
   const router = useRouter();
 
   const [showDetail, setShowDetail] = useState<boolean>(false);
-
-  const [history, setHistory] = useState<any>([{ chip: [] }]);
-  const [step, setStep] = useState<number>(0);
+  const [history, setHistory] = useState<any>([[]]);
   const [rolling, setRolling] = useState<boolean>(false);
   const [bead, setBead] = useState<any>([]);
+  const [beadSum, setBeadSum] = useState<any>([]);
   const [detail, setDetail] = useState<any>([]);
+  const [finalBet, setFinalBet] = useState<[]>([]);
 
-  const current = history[step];
-  // console.log("current", current);
+  const lastIndex = history.length - 1;
+  const current = history[lastIndex];
 
   async function roll() {
-    if (rolling === false) {
-      setRolling(true);
+    if (history.length > 1) {
+      if (rolling === false) {
+        setRolling(true);
 
-      const { data } = await Axios.get(
-        "https://roulette.ap.ngrok.io/roulette/result",
-        {
-          headers: {
-            Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
-          },
+        const { data } = await Axios.get(
+          "https://roulette.ap.ngrok.io/roulette/result",
+          {
+            headers: {
+              Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
+            },
+          }
+        );
+
+        let newArr = [];
+        newArr.push(data.winner);
+        data.addition.map((v: any) => {
+          newArr.push(v);
+        });
+
+        const scroll = document.getElementById("scroll");
+        const award = data.winner.substring(11);
+        let colorbut = null;
+
+        for (let i = 0; i < colorBlock.length; i++) {
+          if (award === colorBlock[i].number) {
+            colorbut = colorBlock[i].color;
+            break;
+          }
         }
-      );
 
-      let newArr = [];
-      newArr.push(data.winner);
-      data.addition.map((v: any) => {
-        newArr.push(v);
-      });
+        const newBeadSum = beadSum.slice();
+        const plusSum = newBeadSum.findIndex((val) => {
+          return val.number === award;
+        });
 
-      const scroll = document.getElementById("scroll");
-      const award = data.winner.substring(11);
-      let colorbut = null;
-
-      for (let i = 0; i < colorBlock.length; i++) {
-        if (award === colorBlock[i].number) {
-          colorbut = colorBlock[i].color;
-          break;
-        }
-      }
-
-      scroll.style.transition = "margin 5s ease";
-      scroll.style.marginLeft =
-        "calc(180px - 20px - (760px * 6) - (40px * " + award + "))";
-
-      await setTimeout(function () {
-        scroll.style.transition = "margin 0s ease";
+        scroll.style.transition = "margin 5s ease";
         scroll.style.marginLeft =
-          "calc(180px - 20px - (760px * 1) - (40px * " + award + "))";
+          "calc(180px - 20px - (760px * 6) - (40px * " + award + "))";
 
-        setBead(bead.concat({ number: award, color: colorbut }));
-        setDetail(newArr);
-        setRolling(false);
-        show();
-      }, 5 * 1000);
+        await setTimeout(function () {
+          scroll.style.transition = "margin 0s ease";
+          scroll.style.marginLeft =
+            "calc(180px - 20px - (760px * 1) - (40px * " + award + "))";
+
+          setBead(bead.concat({ number: award, color: colorbut }));
+          if (plusSum >= 0) {
+            newBeadSum[plusSum].sum = beadSum[plusSum].sum + 1;
+            setBeadSum(newBeadSum);
+          }
+          // else {
+          //   setBeadSum(
+          //     newBeadSum.concat({ number: award, color: colorbut, sum: 1 })
+          //   );
+          // }
+          setDetail(newArr);
+          setRolling(false);
+          setFinalBet(current);
+          setHistory([[]]);
+          // show();
+        }, 5 * 1000);
+      }
     }
   }
-  // console.log("history", history);
+
   const handleClick = (i: number, val: string) => {
-    const newHistory = history.slice(0, step + 1);
-    // console.log("newHistory", newHistory);
-
-    const current = newHistory[newHistory.length - 1];
-    // console.log("current", current);
-
-    const chip = current.chip.slice();
-    console.log("chip1", chip);
-
+    const chip = current.slice();
     chip[i] = val;
-    // console.log("chip2", chip);
-
-    setHistory(newHistory.concat([{ chip: chip }]));
-    setStep(newHistory.length);
+    setHistory(history.concat([chip]));
   };
 
   const undo = () => {
-    if (step > 0) {
-      const reverse = step - 1;
-      setStep(reverse);
+    if (lastIndex > 0) {
+      const newHistory = history.slice(0, lastIndex);
+      setHistory(newHistory);
     }
   };
 
@@ -113,6 +119,31 @@ const IndexPage: NextPage<IProps> = (props) => {
   const hide = () => {
     setShowDetail(false);
   };
+
+  useEffect(() => {
+    const butNumbet = [
+      { number: "0", color: "green", sum: 0 },
+      { number: "1", color: "red", sum: 0 },
+      { number: "2", color: "black", sum: 0 },
+      { number: "3", color: "red", sum: 0 },
+      { number: "4", color: "black", sum: 0 },
+      { number: "5", color: "red", sum: 0 },
+      { number: "6", color: "black", sum: 0 },
+      { number: "7", color: "red", sum: 0 },
+      { number: "8", color: "black", sum: 0 },
+      { number: "9", color: "red", sum: 0 },
+      { number: "10", color: "black", sum: 0 },
+      { number: "11", color: "black", sum: 0 },
+      { number: "12", color: "red", sum: 0 },
+      { number: "13", color: "black", sum: 0 },
+      { number: "14", color: "red", sum: 0 },
+      { number: "15", color: "black", sum: 0 },
+      { number: "16", color: "red", sum: 0 },
+      { number: "17", color: "black", sum: 0 },
+      { number: "18", color: "red", sum: 0 },
+    ];
+    setBeadSum(butNumbet);
+  }, []);
 
   return (
     <DefaultLayout>
@@ -125,46 +156,7 @@ const IndexPage: NextPage<IProps> = (props) => {
               alt="logoWaRette"
             />
             <div className="absolute top-20 left-5">
-              <div className="flex flex-row gap-4">
-                <HotCold type="hot">
-                  <div className="flex flex-row gap-1">
-                    <BlockNumber size="xs" color="red">
-                      18
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="black">
-                      2
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="black">
-                      11
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="black">
-                      13
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="red">
-                      5
-                    </BlockNumber>
-                  </div>
-                </HotCold>
-                <HotCold type="cold">
-                  <div className="flex flex-row gap-1">
-                    <BlockNumber size="xs" color="red">
-                      18
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="black">
-                      2
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="black">
-                      11
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="black">
-                      13
-                    </BlockNumber>
-                    <BlockNumber size="xs" color="red">
-                      5
-                    </BlockNumber>
-                  </div>
-                </HotCold>
-              </div>
+              <BlockHotCold data={beadSum} />
               <div className="mt-4 title-3">BEAD ROAD</div>
               <BeadRoad data={bead} />
             </div>
@@ -189,7 +181,7 @@ const IndexPage: NextPage<IProps> = (props) => {
             >
               Exit
             </Button>
-            {/* <div className="title-0 ml-5">{username}</div> */}
+            <div className="title-0 ml-5">{username}</div>
           </div>
           <div className="flex gap-x-2.5 items-center">
             <Button onClick={show} type="white" width={106}>
@@ -209,18 +201,19 @@ const IndexPage: NextPage<IProps> = (props) => {
         isShow={showDetail}
         hide={hide}
         detail={detail}
-        chip={current}
+        finalBet={finalBet}
       />
     </DefaultLayout>
   );
 };
 
-export const getidServerSeProps: GetServerSideProps = async (ctx) => {
-  const res = withAuthentication(ctx);
-  const username = (await res).username;
-  return {
-    props: { username },
-  };
-};
+// export const getidServerSeProps: GetServerSideProps = async (ctx) => {
+//   const res = withAuthentication(ctx);
+//   const username = (await res).username;
+//   console.log("login");
+//   return {
+//     props: { username },
+//   };
+// };
 
 export default IndexPage;

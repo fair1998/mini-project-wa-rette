@@ -9,7 +9,7 @@ const Logout: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   destroyCookie(ctx, ACCESS_TOKEN);
   ctx.res.statusCode = 307;
-  ctx.res.setHeader("Location", `/?forward=/`);
+  ctx.res.setHeader("Location", `/login`);
   return {
     props: {},
   };

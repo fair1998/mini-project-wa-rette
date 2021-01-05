@@ -8,8 +8,7 @@ interface IProps {
 }
 
 const BoardGame: FunctionComponent<IProps> = (props) => {
-  const { onClick, value } = props;
-  // console.log("value2", value);
+  const { onClick, value, rolling } = props;
   return (
     <div className="relative ">
       <div className="absolute grid grid-cols-8 gap-1 text-fs12 w-380">
@@ -52,16 +51,12 @@ const BoardGame: FunctionComponent<IProps> = (props) => {
         <button
           key={i}
           id={val.value}
-          className="absolute align-center z-20"
-          style={{
-            top: val.but.top,
-            left: val.but.left,
-            width: val.but.width,
-            height: val.but.height,
-          }}
+          className="absolute  align-center z-20"
+          style={val.but}
           onClick={() => onClick(i, val.value)}
+          disabled={value[i] || rolling ? true : false}
         >
-          {value.chip[i] && (
+          {value[i] && (
             <img className="z-40" width={18} src="/Chip.svg" alt="Chip" />
           )}
         </button>

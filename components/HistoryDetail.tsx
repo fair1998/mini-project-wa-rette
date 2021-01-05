@@ -6,15 +6,11 @@ interface IProps {
   isShow: any;
   hide: any;
   detail: any;
-  chip: any;
+  finalBet: [];
 }
 
 const HistoryDetail: FunctionComponent<IProps> = (props) => {
-  const { isShow, hide, detail, chip } = props;
-  // console.log("chip", chip);
-  const arrChip = chip.chip;
-  // console.log("arrChip", arrChip);
-
+  const { isShow, hide, detail, finalBet } = props;
   return (
     <div
       className="bg-main_image bg-blue"
@@ -34,7 +30,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
           <div className="absolute left-5 top-5 title-3">Bet keys</div>
           <div
             id="scrollbar"
-            className="absolute left-5 top-50 w-314 h-260 grid grid-cols-2 gap-x-10 gap-y-6 overflow-y-auto pr-5"
+            className="absolute left-5 top-50 w-314 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
             {detail.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">
@@ -48,9 +44,9 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
           <div className="left-5 top-5 title-3 mb-2.5">Player Bet keys</div>
           <div
             id="scrollbar"
-            className="w-314 h-260 grid grid-cols-2 gap-x-10 gap-y-6 overflow-y-auto pr-5"
+            className="w-314 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
-            {arrChip.map((val: string, i: number) => (
+            {finalBet.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">
                 <div className="result">{val}</div>
               </div>
