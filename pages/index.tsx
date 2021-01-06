@@ -34,6 +34,8 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
   const lastIndex = history.length - 1;
   const current = history[lastIndex];
 
+  console.log("bead", bead);
+
   async function roll() {
     if (history.length > 1) {
       if (rolling === false) {
@@ -152,13 +154,13 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
               alt="logoWaRette"
             />
             <div className="absolute top-20 left-5">
-              <BlockHotCold data={beadSum} />
+              <BlockHotCold data={beadSum} beadlength={bead.length} />
               <div className="mt-4 title-3">BEAD ROAD</div>
               <BeadRoad data={bead} />
             </div>
           </BlockSquare>
           <div className="max-w-430 w-full pl-10 pt-5">
-            <LastSpin colorBlock={colorBlock} />
+            <LastSpin />
             <BoardGame
               value={current}
               rolling={rolling}

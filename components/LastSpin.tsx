@@ -1,11 +1,8 @@
 import { FunctionComponent } from "react";
 
-interface IProps {
-  colorBlock: any;
-}
+interface IProps {}
 
 const LastSpin: FunctionComponent<IProps> = (props) => {
-  const { colorBlock } = props;
   const res = [];
 
   for (let index = 0; index < 8; index++) {

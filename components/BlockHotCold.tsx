@@ -1,19 +1,23 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import BlockNumber from "./BlockNumber";
 import HotCold from "./HotCold";
 
 interface IProps {
   data: any;
+  beadlength: number;
 }
 
 const BlockHotCold: FunctionComponent<IProps> = (props) => {
-  const { data } = props;
+  const { data, beadlength } = props;
 
-  data.sort(function (a, b) {
-    return b.sum - a.sum;
-  });
+  if (data) {
+    data.sort(function (a, b) {
+      return b.sum - a.sum;
+    });
+  }
 
-  const hot = data.slice(0, 5);
+  console.log("data", data);
+  const hot = data.slice(0, beadlength <= 5 ? beadlength : 5);
   const cold = data.slice(
     data.length <= 10 ? 5 : data.length - 5,
     data.length <= 10 ? 10 : data.length
@@ -23,20 +27,24 @@ const BlockHotCold: FunctionComponent<IProps> = (props) => {
     <div className="flex flex-row gap-4">
       <HotCold type="hot">
         <div className="flex flex-row gap-1">
-          {hot.map((val: any, i: number) => (
-            <BlockNumber key={i} size="xs" color={val.color}>
-              {val.number}
-            </BlockNumber>
-          ))}
+          {beadlength
+            ? hot.map((val: any, i: number) => (
+                <BlockNumber key={i} size="xs" color={val.color}>
+                  {val.number}
+                </BlockNumber>
+              ))
+            : ""}
         </div>
       </HotCold>
       <HotCold type="cold">
         <div className="flex flex-row gap-1">
-          {cold.map((val: any, i: number) => (
-            <BlockNumber key={i} size="xs" color={val.color}>
-              {val.number}
-            </BlockNumber>
-          ))}
+          {beadlength
+            ? cold.map((val: any, i: number) => (
+                <BlockNumber key={i} size="xs" color={val.color}>
+                  {val.number}
+                </BlockNumber>
+              ))
+            : ""}
         </div>
       </HotCold>
     </div>
