@@ -2,32 +2,39 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import BlockNumber from "./BlockNumber";
 import HotCold from "./HotCold";
 
-interface IProps {
-  data: any;
-  beadlength: number;
+interface BlockHotColdProps {
+  beadCount: any;
+  beadAmount: number;
 }
 
-const BlockHotCold: FunctionComponent<IProps> = (props) => {
-  const { data, beadlength } = props;
+const BlockHotCold: FunctionComponent<BlockHotColdProps> = (props) => {
+  const { beadCount, beadAmount } = props;
 
-  if (data) {
-    data.sort(function (a, b) {
-      return b.sum - a.sum;
-    });
+  if (beadCount) {
+    beadCount.sort(function (a, b) {
+      return b.count - a.count;
+    }); // Sort from highest to lowest.
   }
 
-  const hot = data.slice(0, beadlength <= 5 ? beadlength : 5);
-  const cold = data.slice(
-    data.length <= 10 ? 5 : data.length - 5,
-    data.length <= 10 ? 10 : data.length
-  );
+  const spinBeadMax = [];
+  for (let i = 0; i < beadCount.length; i++) {
+    if (beadCount[i].count >= 1) {
+      spinBeadMax.push({
+        number: beadCount[i].number,
+        color: beadCount[i].color,
+      });
+    }
+  }
 
+  const hotSort = spinBeadMax.slice(0, 5);
+  const coldSort = beadCount.slice(14, 19);
+  
   return (
     <div className="flex flex-row gap-4">
       <HotCold type="hot">
         <div className="flex flex-row gap-1">
-          {beadlength
-            ? hot.map((val: any, i: number) => (
+          {beadAmount
+            ? hotSort.map((val: any, i: number) => (
                 <BlockNumber key={i} size="xs" color={val.color}>
                   {val.number}
                 </BlockNumber>
@@ -37,8 +44,8 @@ const BlockHotCold: FunctionComponent<IProps> = (props) => {
       </HotCold>
       <HotCold type="cold">
         <div className="flex flex-row gap-1">
-          {beadlength
-            ? cold.map((val: any, i: number) => (
+          {beadAmount
+            ? coldSort.map((val: any, i: number) => (
                 <BlockNumber key={i} size="xs" color={val.color}>
                   {val.number}
                 </BlockNumber>

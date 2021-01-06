@@ -1,12 +1,13 @@
 import { FunctionComponent } from "react";
 
-interface IProps {
+interface BlockNumberProps {
   color: "red" | "blue" | "black" | "green" | "null";
   size: "xs" | "sm" | "md";
+  className?: string;
 }
 
-const BlockNumber: FunctionComponent<IProps> = (props) => {
-  const { children, color, size } = props;
+const BlockNumber: FunctionComponent<BlockNumberProps> = (props) => {
+  const { children, color, size, className } = props;
   return (
     <div
       className={`block-number box-shadow-black-16 ${
@@ -19,7 +20,13 @@ const BlockNumber: FunctionComponent<IProps> = (props) => {
           : color === "green"
           ? "bg-green"
           : "border-dotted-white-30 bg-blue-700"
-      } ${size === "sm" ? "w-10 h-30" : size === "md" ? "" : ""}`}
+      } ${
+        size === "xs"
+          ? "w-5 h-4"
+          : size === "sm"
+          ? "w-10 h-30 rounded text-fs12 font-bold"
+          : "w-11 h-9 rounded text-fs12 font-bold"
+      } ${className}`}
     >
       {children}
     </div>

@@ -2,6 +2,12 @@
 
 @tailwind base;
 
+body {
+  @apply font-prompt;
+  @apply bg-main_image;
+  @apply bg-blue;
+}
+
 button:focus {
   outline: none;
 }
@@ -132,8 +138,6 @@ button:focus {
   @apply flex;
   @apply items-center;
   @apply justify-center;
-  @apply w-5;
-  @apply h-4;
   @apply border;
   @apply border-blue-600;
   @apply rounded-sm;

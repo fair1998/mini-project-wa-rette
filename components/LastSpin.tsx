@@ -1,13 +1,11 @@
 import { FunctionComponent } from "react";
 
-interface IProps {}
+const LastSpin: FunctionComponent = (props) => {
+  const dataSetNumber = [];
 
-const LastSpin: FunctionComponent<IProps> = (props) => {
-  const res = [];
-
-  for (let index = 0; index < 8; index++) {
-    const element = (
-      <div key={index} className="flex flex-row z-20">
+  for (let i = 0; i < 8; i++) {
+    const numberSet  = (
+      <div key={i} className="flex flex-row z-20">
         <div className="btn-gmae bg-green w-10 h-30">0</div>
         <div className="btn-gmae bg-red w-10 h-30">1</div>
         <div className="btn-gmae bg-blue-300 w-10 h-30">2</div>
@@ -29,7 +27,7 @@ const LastSpin: FunctionComponent<IProps> = (props) => {
         <div className="btn-gmae bg-red w-10 h-30">18</div>
       </div>
     );
-    res.push(element);
+    dataSetNumber.push(numberSet );
   }
 
   return (
@@ -56,7 +54,7 @@ const LastSpin: FunctionComponent<IProps> = (props) => {
 
       <div className="absolute bg-scroll" style={{ top: 9, left: 7 }}>
         <div className="scroll" id="scroll">
-          {res}
+          {dataSetNumber}
         </div>
       </div>
     </div>

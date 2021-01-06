@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 
-const BlockSquare: FunctionComponent = (props) => {
+const BlockResults: FunctionComponent = (props) => {
   const { children } = props;
   return (
     <div className="relative max-w-466 w-full h-339">
@@ -11,4 +11,4 @@ const BlockSquare: FunctionComponent = (props) => {
   );
 };
 
-export default BlockSquare;
+export default BlockResults;

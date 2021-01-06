@@ -1,12 +1,10 @@
 import React, { FunctionComponent } from "react";
-import Flame from "./svg/Flame";
-import SnowFlake from "./svg/SnowFlake";
 
-interface IProps {
+interface HotColdProps {
   type: "hot" | "cold";
 }
 
-const HotCold: FunctionComponent<IProps> = (props) => {
+const HotCold: FunctionComponent<HotColdProps> = (props) => {
   const { children, type } = props;
   return (
     <div className={`relative hotcold ${type === "hot" ? "w-190" : "w-200"}`}>
@@ -18,7 +16,11 @@ const HotCold: FunctionComponent<IProps> = (props) => {
       <div className="absolute side-hotcold" />
       <div className="absolute bg-side-hotcold" />
       <div className="absolute -top-44 left-1 icon-hotcold">
-        {type === "hot" ? <Flame /> : <SnowFlake />}
+        {type === "hot" ? (
+          <img src="fire.svg" alt="fire" />
+        ) : (
+          <img src="snowflake.svg" alt="snowflake" />
+        )}
       </div>
       <div className="absolute -top-43 left-50 connect">
         <div className="title-3">{type === "hot" ? "HOT" : "COLD"}</div>

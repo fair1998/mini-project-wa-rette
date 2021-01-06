@@ -19,7 +19,6 @@ const Login: NextPage = () => {
   const [password, setPassword] = useState<string>("");
 
   const formSubmit = async () => {
-    // const { data } = await Axios.post<LoginResponse>(
     await Axios.post<LoginResponse>("https://roulette.ap.ngrok.io/auth/login", {
       username: username,
       password: password,
@@ -32,10 +31,9 @@ const Login: NextPage = () => {
         window.location.reload();
       })
       .catch((error) => {
-        alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด");
+        // console.log("error.response.data.message", error.response.data.message);
+        alert("Wrong username or password");
       });
-
-    //
   };
   return (
     <DefaultLayout>
@@ -71,7 +69,7 @@ const Login: NextPage = () => {
             >
               Register
             </a>
-            <Button type="green" width={86} onClick={formSubmit}>
+            <Button color="green" width={86} onClick={formSubmit}>
               Sign in
             </Button>
           </div>

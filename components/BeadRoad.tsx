@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 import BlockNumber from "./BlockNumber";
 
-interface IProps {
+interface BeadRoadProps {
   data: any;
 }
 
-const BeadRoad: FunctionComponent<IProps> = (props) => {
+const BeadRoad: FunctionComponent<BeadRoadProps> = (props) => {
   const { data } = props;
 
   return (
@@ -13,7 +13,7 @@ const BeadRoad: FunctionComponent<IProps> = (props) => {
       <div className="p-1 grid grid-rows-6 grid-flow-col gap-0.5 w-min">
         {data &&
           data.map((val: any, i: number) => (
-            <BlockNumber size="xs" key={i} color={val.color}>
+            <BlockNumber key={i} size="xs" color={val.color}>
               {val.number}
             </BlockNumber>
           ))}

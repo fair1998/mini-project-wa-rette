@@ -1,0 +1,342 @@
+[
+  {
+    "position": { "top": 0, "left": 0, "width": 44, "height": 116 },
+    "value": "STRAIGHTUPx0"
+  },
+  {
+    "position": { "top": 0, "left": 336, "width": 44, "height": 36 },
+    "value": "COLUMNx3rd"
+  },
+  {
+    "position": { "top": 40, "left": 336, "width": 44, "height": 36 },
+    "value": "COLUMNx2rd"
+  },
+  {
+    "position": { "top": 80, "left": 336, "width": 44, "height": 36 },
+    "value": "COLUMNx1rd"
+  },
+  {
+    "position": { "top": 4, "left": 37, "width": 20, "height": 20 },
+    "value": "SPLITx0-3"
+  },
+  {
+    "position": { "top": 4, "left": 60, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx3"
+  },
+  {
+    "position": { "top": 4, "left": 85, "width": 20, "height": 20 },
+    "value": "SPLITx3-6"
+  },
+  {
+    "position": { "top": 4, "left": 109, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx6"
+  },
+  {
+    "position": { "top": 4, "left": 133, "width": 20, "height": 20 },
+    "value": "SPLITx6-9"
+  },
+  {
+    "position": { "top": 4, "left": 156, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx9"
+  },
+  {
+    "position": { "top": 4, "left": 180, "width": 20, "height": 20 },
+    "value": "SPLITx9-12"
+  },
+  {
+    "position": { "top": 4, "left": 204, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx12"
+  },
+  {
+    "position": { "top": 4, "left": 228, "width": 20, "height": 20 },
+    "value": "SPLITx12-15"
+  },
+  {
+    "position": { "top": 4, "left": 252, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx15"
+  },
+  {
+    "position": { "top": 4, "left": 277, "width": 20, "height": 20 },
+    "value": "SPLITx15-18"
+  },
+  {
+    "position": { "top": 4, "left": 300, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx18"
+  },
+  {
+    "position": { "top": 25, "left": 37, "width": 20, "height": 20 },
+    "value": "STREETx0-2-3"
+  },
+  {
+    "position": { "top": 25, "left": 60, "width": 20, "height": 20 },
+    "value": "SPLITx2-3"
+  },
+  {
+    "position": { "top": 25, "left": 85, "width": 20, "height": 20 },
+    "value": "SQUAREx2-3-5-6"
+  },
+  {
+    "position": { "top": 25, "left": 109, "width": 20, "height": 20 },
+    "value": "SPLITx5-6"
+  },
+  {
+    "position": { "top": 25, "left": 133, "width": 20, "height": 20 },
+    "value": "SQUAREx5-6-8-9"
+  },
+  {
+    "position": { "top": 25, "left": 156, "width": 20, "height": 20 },
+    "value": "SPLITx8-9"
+  },
+  {
+    "position": { "top": 25, "left": 180, "width": 20, "height": 20 },
+    "value": "SQUAREx8-9-11-12"
+  },
+  {
+    "position": { "top": 25, "left": 204, "width": 20, "height": 20 },
+    "value": "SPLITx11-12"
+  },
+  {
+    "position": { "top": 25, "left": 228, "width": 20, "height": 20 },
+    "value": "SQUAREx11-12-14-15"
+  },
+  {
+    "position": { "top": 25, "left": 252, "width": 20, "height": 20 },
+    "value": "SPLITx14-15"
+  },
+  {
+    "position": { "top": 25, "left": 277, "width": 20, "height": 20 },
+    "value": "SQUAREx14-15-17-18"
+  },
+  {
+    "position": { "top": 25, "left": 300, "width": 20, "height": 20 },
+    "value": "SPLITx17-18"
+  },
+  {
+    "position": { "top": 46, "left": 37, "width": 20, "height": 20 },
+    "value": "SPLITx0-2"
+  },
+  {
+    "position": { "top": 46, "left": 60, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx2"
+  },
+  {
+    "position": { "top": 46, "left": 85, "width": 20, "height": 20 },
+    "value": "SPLITx2-5"
+  },
+  {
+    "position": { "top": 46, "left": 109, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx5"
+  },
+  {
+    "position": { "top": 46, "left": 133, "width": 20, "height": 20 },
+    "value": "SPLITx5-8"
+  },
+  {
+    "position": { "top": 46, "left": 156, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx8"
+  },
+  {
+    "position": { "top": 46, "left": 180, "width": 20, "height": 20 },
+    "value": "SPLITx8-11"
+  },
+  {
+    "position": { "top": 46, "left": 204, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx11"
+  },
+  {
+    "position": { "top": 46, "left": 228, "width": 20, "height": 20 },
+    "value": "SPLITx11-14"
+  },
+  {
+    "position": { "top": 46, "left": 252, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx14"
+  },
+  {
+    "position": { "top": 46, "left": 277, "width": 20, "height": 20 },
+    "value": "SPLITx14-17"
+  },
+  {
+    "position": { "top": 46, "left": 300, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx17"
+  },
+  {
+    "position": { "top": 67, "left": 37, "width": 20, "height": 20 },
+    "value": "STREETx0-1-2"
+  },
+  {
+    "position": { "top": 67, "left": 60, "width": 20, "height": 20 },
+    "value": "SPLITx1-2"
+  },
+  {
+    "position": { "top": 67, "left": 85, "width": 20, "height": 20 },
+    "value": "SQUAREx1-2-4-5"
+  },
+  {
+    "position": { "top": 67, "left": 109, "width": 20, "height": 20 },
+    "value": "SPLITx4-5"
+  },
+  {
+    "position": { "top": 67, "left": 133, "width": 20, "height": 20 },
+    "value": "SQUAREx4-5-7-8"
+  },
+  {
+    "position": { "top": 67, "left": 156, "width": 20, "height": 20 },
+    "value": "SPLITx7-8"
+  },
+  {
+    "position": { "top": 67, "left": 180, "width": 20, "height": 20 },
+    "value": "SQUAREx7-8-10-11"
+  },
+  {
+    "position": { "top": 67, "left": 204, "width": 20, "height": 20 },
+    "value": "SPLITx10-11"
+  },
+  {
+    "position": { "top": 67, "left": 228, "width": 20, "height": 20 },
+    "value": "SQUAREx10-11-13-14"
+  },
+  {
+    "position": { "top": 67, "left": 252, "width": 20, "height": 20 },
+    "value": "SPLITx13-14"
+  },
+  {
+    "position": { "top": 67, "left": 277, "width": 20, "height": 20 },
+    "value": "SQUAREx13-14-16-17"
+  },
+  {
+    "position": { "top": 67, "left": 300, "width": 20, "height": 20 },
+    "value": "SPLITx16-17"
+  },
+  {
+    "position": { "top": 88, "left": 37, "width": 20, "height": 20 },
+    "value": "SPLITx0-1"
+  },
+  {
+    "position": { "top": 88, "left": 60, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx1"
+  },
+  {
+    "position": { "top": 88, "left": 85, "width": 20, "height": 20 },
+    "value": "SPLITx1-4"
+  },
+  {
+    "position": { "top": 88, "left": 109, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx4"
+  },
+  {
+    "position": { "top": 88, "left": 133, "width": 20, "height": 20 },
+    "value": "SPLITx4-7"
+  },
+  {
+    "position": { "top": 88, "left": 156, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx7"
+  },
+  {
+    "position": { "top": 88, "left": 180, "width": 20, "height": 20 },
+    "value": "SPLITx7-10"
+  },
+  {
+    "position": { "top": 88, "left": 204, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx10"
+  },
+  {
+    "position": { "top": 88, "left": 228, "width": 20, "height": 20 },
+    "value": "SPLITx10-13"
+  },
+  {
+    "position": { "top": 88, "left": 252, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx13"
+  },
+  {
+    "position": { "top": 88, "left": 277, "width": 20, "height": 20 },
+    "value": "SPLITx13-16"
+  },
+  {
+    "position": { "top": 88, "left": 300, "width": 20, "height": 20 },
+    "value": "STRAIGHTUPx16"
+  },
+  {
+    "position": { "top": 109, "left": 37, "width": 20, "height": 20 },
+    "value": "BASKETx0-1-2-3"
+  },
+  {
+    "position": { "top": 109, "left": 60, "width": 20, "height": 20 },
+    "value": "STREETx1-2-3"
+  },
+  {
+    "position": { "top": 109, "left": 85, "width": 20, "height": 20 },
+    "value": "LINEx1-6"
+  },
+  {
+    "position": { "top": 109, "left": 109, "width": 20, "height": 20 },
+    "value": "STREETx4-5-6"
+  },
+  {
+    "position": { "top": 109, "left": 133, "width": 20, "height": 20 },
+    "value": "LINEx4-9"
+  },
+  {
+    "position": { "top": 109, "left": 156, "width": 20, "height": 20 },
+    "value": "STREETx7-8-9"
+  },
+  {
+    "position": { "top": 109, "left": 180, "width": 20, "height": 20 },
+    "value": "LINEx7-12"
+  },
+  {
+    "position": { "top": 109, "left": 204, "width": 20, "height": 20 },
+    "value": "STREETx10-11-12"
+  },
+  {
+    "position": { "top": 109, "left": 228, "width": 20, "height": 20 },
+    "value": "LINEx10-15"
+  },
+  {
+    "position": { "top": 109, "left": 252, "width": 20, "height": 20 },
+    "value": "STREETx13-14-15"
+  },
+  {
+    "position": { "top": 109, "left": 277, "width": 20, "height": 20 },
+    "value": "LINEx13-18"
+  },
+  {
+    "position": { "top": 109, "left": 300, "width": 20, "height": 20 },
+    "value": "STREETx16-17-18"
+  },
+  {
+    "position": { "top": 120, "left": 48, "width": 92, "height": 36 },
+    "value": "DOZENx1st"
+  },
+  {
+    "position": { "top": 120, "left": 144, "width": 92, "height": 36 },
+    "value": "DOZENx2nd"
+  },
+  {
+    "position": { "top": 120, "left": 240, "width": 92, "height": 36 },
+    "value": "DOZENx3rd"
+  },
+  {
+    "position": { "top": 160, "left": 48, "width": 44, "height": 36 },
+    "value": "HALFxSMALL"
+  },
+  {
+    "position": { "top": 160, "left": 96, "width": 44, "height": 36 },
+    "value": "HALFxEVEN"
+  },
+  {
+    "position": { "top": 160, "left": 144, "width": 44, "height": 36 },
+    "value": "HALFxRED"
+  },
+  {
+    "position": { "top": 160, "left": 192, "width": 44, "height": 36 },
+    "value": "HALFxBLACK"
+  },
+  {
+    "position": { "top": 160, "left": 240, "width": 44, "height": 36 },
+    "value": "HALFxODD"
+  },
+  {
+    "position": { "top": 160, "left": 288, "width": 44, "height": 36 },
+    "value": "HALFxBIG"
+  }
+]

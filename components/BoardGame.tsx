@@ -1,62 +1,124 @@
-import { FunctionComponent } from "react";
-const actionBut = require("./data/actionBut.json");
+import React, { FunctionComponent } from "react";
+import BlockNumber from "./BlockNumber";
+const ChipPosition = require("./data/ChipPosition.json");
 
-interface IProps {
-  onClick: (i: number, val: string) => void;
-  value: any;
+interface BoardGameProps {
+  onClick: (val: string, i: number) => void;
+  chip: any;
   rolling: boolean;
 }
 
-const BoardGame: FunctionComponent<IProps> = (props) => {
-  const { onClick, value, rolling } = props;
+const BoardGame: FunctionComponent<BoardGameProps> = (props) => {
+  const { onClick, chip, rolling } = props;
   return (
     <div className="relative ">
       <div className="absolute grid grid-cols-8 gap-1 text-fs12 w-380">
-        <div className="btn-gmae row-span-3 h-auto bg-green">0</div>
-        <div className="btn-gmae bg-red">3</div>
-        <div className="btn-gmae bg-blue-300">6</div>
-        <div className="btn-gmae bg-red">9</div>
-        <div className="btn-gmae bg-red">12</div>
-        <div className="btn-gmae bg-blue-300">15</div>
-        <div className="btn-gmae bg-red">18</div>
-        <div className="btn-gmae bg-blue">1:2</div>
-        <div className="btn-gmae bg-blue-300">2</div>
-        <div className="btn-gmae bg-red">5</div>
-        <div className="btn-gmae bg-blue-300">8</div>
-        <div className="btn-gmae bg-blue-300">11</div>
-        <div className="btn-gmae bg-red">14</div>
-        <div className="btn-gmae bg-blue-300">17</div>
-        <div className="btn-gmae bg-blue">1:2</div>
-        <div className="btn-gmae bg-red">1</div>
-        <div className="btn-gmae bg-blue-300">4</div>
-        <div className="btn-gmae bg-red">7</div>
-        <div className="btn-gmae bg-blue-300">10</div>
-        <div className="btn-gmae bg-blue-300">13</div>
-        <div className="btn-gmae bg-red">16</div>
-        <div className="btn-gmae bg-blue">1:2</div>
+        <BlockNumber
+          color="green"
+          size="md"
+          className="btn-gmae row-span-3 h-auto"
+        >
+          0
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          3
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          6
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          9
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          12
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          15
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          18
+        </BlockNumber>
+        <BlockNumber color="blue" size="md">
+          1:2
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          2
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          5
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          8
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          11
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          14
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          17
+        </BlockNumber>
+        <BlockNumber color="blue" size="md">
+          1:2
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          1
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          4
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          7
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          10
+        </BlockNumber>
+        <BlockNumber color="black" size="md">
+          13
+        </BlockNumber>
+        <BlockNumber color="red" size="md">
+          16
+        </BlockNumber>
+        <BlockNumber color="blue" size="md">
+          1:2
+        </BlockNumber>
         <div className="row-span-2" />
-        <div className="btn-gmae col-span-2 w-auto bg-blue">1st</div>
-        <div className="btn-gmae col-span-2 w-auto bg-blue">2nd</div>
-        <div className="btn-gmae col-span-2 w-auto bg-blue">3rd</div>
+        <BlockNumber color="blue" size="md" className="col-span-2 w-auto">
+          1st
+        </BlockNumber>
+        <BlockNumber color="blue" size="md" className="col-span-2 w-auto">
+          2nd
+        </BlockNumber>
+        <BlockNumber color="blue" size="md" className="col-span-2 w-auto">
+          3rd
+        </BlockNumber>
         <div className="row-span-2" />
-        <div className="btn-gmae bg-blue">1-9</div>
-        <div className="btn-gmae bg-blue">Even</div>
-        <div className="btn-gmae bg-red"></div>
-        <div className="btn-gmae bg-blue-300"></div>
-        <div className="btn-gmae bg-blue">Odd</div>
-        <div className="btn-gmae bg-blue">10-18</div>
+        <BlockNumber color="blue" size="md">
+          1-9
+        </BlockNumber>
+        <BlockNumber color="blue" size="md">
+          Even
+        </BlockNumber>
+        <BlockNumber color="red" size="md" />
+        <BlockNumber color="black" size="md" />
+        <BlockNumber color="blue" size="md">
+          Odd
+        </BlockNumber>
+        <BlockNumber color="blue" size="md">
+          10-18
+        </BlockNumber>
       </div>
 
-      {actionBut.map((val: any, i: number) => (
+      {ChipPosition.map((val: any, i: number) => (
         <button
           key={i}
-          id={val.value}
           className="absolute  align-center z-20"
-          style={val.but}
-          onClick={() => onClick(i, val.value)}
-          disabled={value[i] || rolling ? true : false}
+          style={val.position}
+          onClick={() => onClick(val.value, i)}
+          disabled={chip[i] || rolling ? true : false}
         >
-          {value[i] && (
+          {chip[i] && (
             <img className="z-40" width={18} src="/Chip.svg" alt="Chip" />
           )}
         </button>

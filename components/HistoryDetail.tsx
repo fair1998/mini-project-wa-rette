@@ -2,31 +2,31 @@ import React, { FunctionComponent } from "react";
 import BlockSquare from "./BlockSquare";
 import Button from "./Button";
 
-interface IProps {
-  show: any;
-  hide: () => void;
-  betDetail: any;
+interface HistoryDetailProps {
+  showHistory: any;
+  hideHistory: () => void;
+  betKeysAPI: any;
   finalBet: [];
 }
 
-const HistoryDetail: FunctionComponent<IProps> = (props) => {
-  const { show, hide, betDetail, finalBet } = props;
+const HistoryDetail: FunctionComponent<HistoryDetailProps> = (props) => {
+  const { showHistory, hideHistory, betKeysAPI, finalBet } = props;
 
-  const results = [];
+  const playerBetKeys = [];
 
   finalBet.map((valFinalBet: any, i: number) => {
-    const check = betDetail.find((valDetail: string) => {
-      return valDetail === valFinalBet;
+    const check = betKeysAPI.find((valBetKeysAPI: string) => {
+      return valBetKeysAPI === valFinalBet;
     });
 
     if (check) {
-      results.push(
+      playerBetKeys.push(
         <div key={i} className="wrapper-result ">
           <div className="result ck-result">{valFinalBet}</div>
         </div>
       );
     } else {
-      results.push(
+      playerBetKeys.push(
         <div key={i} className="wrapper-result ">
           <div className="result">{valFinalBet}</div>
         </div>
@@ -37,7 +37,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
     <div
       className="bg-main_image bg-blue"
       style={{
-        display: show ? "block" : "none",
+        display: showHistory ? "block" : "none",
         zIndex: 100,
         width: 896,
         height: 414,
@@ -54,7 +54,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
             id="scrollbar"
             className="absolute left-5 top-50 w-340 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
-            {betDetail.map((val: string, i: number) => (
+            {betKeysAPI.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">
                 <div className="result">{val}</div>
               </div>
@@ -68,13 +68,13 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
             id="scrollbar"
             className="w-340 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
-            {results}
+            {playerBetKeys}
           </div>
         </div>
       </div>
       <div className="footer-game">
         <div className="flex items-center">
-          <Button onClick={hide} type="white" width={140}>
+          <Button onClick={hideHistory} color="white" width={140}>
             Back
           </Button>
           <div className="title-0 ml-5">Bet Detail</div>

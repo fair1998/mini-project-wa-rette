@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
 const Loading: FunctionComponent = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [width, setWidth] = useState(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [width, setWidth] = useState<number>(0);
 
   const Loading = () => {
     if (width >= 99) {

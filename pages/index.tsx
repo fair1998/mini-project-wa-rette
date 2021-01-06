@@ -14,7 +14,7 @@ import { parseCookies } from "nookies";
 import HistoryDetail from "../components/HistoryDetail";
 import BlockHotCold from "../components/BlockHotCold";
 import Loading from "../components/Loading";
-const colorBlock = require("../components/data/colorBlock.json");
+const ColorNumber = require("../components/data/ColorNumber.json");
 
 interface IndexPageProps {
   username: string;
@@ -24,19 +24,19 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
   const { username } = props;
   const router = useRouter();
 
-  const [showDetail, setShowDetail] = useState<boolean>(false);
-  const [history, setHistory] = useState<any>([[]]);
+  const [chipHistory, setChipHistory] = useState<any>([[]]);
   const [rolling, setRolling] = useState<boolean>(false);
-  const [bead, setBead] = useState<any>([]);
-  const [beadSum, setBeadSum] = useState<any>([]);
-  const [betDetail, setBetDetail] = useState<any>([]);
+  const [beadResults, setBeadResults] = useState<any>([]);
+  const [betKeysAPI, setBetKeysAPI] = useState<any>([]);
   const [finalBet, setFinalBet] = useState<[]>([]);
+  const [beadCount, setBeadCount] = useState<any>([]);
+  const [showHistory, setShowHistory] = useState<boolean>(false);
 
-  const lastIndex = history.length - 1;
-  const current = history[lastIndex];
+  const lastIndex = chipHistory.length - 1;
+  const currentChip = chipHistory[lastIndex];
 
   async function spin() {
-    if (history.length > 1) {
+    if (chipHistory.length > 1) {
       if (rolling === false) {
         setRolling(true);
 
@@ -49,98 +49,97 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
           }
         );
 
-        const newBetDetail = [];
-        newBetDetail.push(data.winner);
-        data.addition.map((v: any) => {
-          newBetDetail.push(v);
+        const newBetKeysAPI = [];
+        newBetKeysAPI.push(data.winner);
+        data.addition.map((val: string) => {
+          newBetKeysAPI.push(val);
         });
 
         const scroll = document.getElementById("scroll");
-        const winner = data.winner.substring(11);
-        let colorbut = null;
+        const winner: string = data.winner.substring(11);
+        let colorBlockNumber = null;
 
-        for (let i = 0; i < colorBlock.length; i++) {
-          if (winner === colorBlock[i].number) {
-            colorbut = colorBlock[i].color;
+        for (let i = 0; i < ColorNumber.length; i++) {
+          if (winner === ColorNumber[i].number) {
+            colorBlockNumber = ColorNumber[i].color;
             break;
           }
         }
 
-        const newBeadSum = beadSum.slice();
-        const plusSum = newBeadSum.findIndex((val) => {
+        const newBeadCount = beadCount.slice();
+        const numberIndex = newBeadCount.findIndex((val) => {
           return val.number === winner;
         });
+        newBeadCount[numberIndex].count = beadCount[numberIndex].count + 1;
 
         scroll.style.transition = "margin 5s ease";
         scroll.style.marginLeft =
           "calc(180px - 20px - (760px * 6) - (40px * " + winner + "))";
 
-        await setTimeout(function () {
+        await setTimeout(() => {
           scroll.style.transition = "margin 0s ease";
           scroll.style.marginLeft =
             "calc(180px - 20px - (760px * 1) - (40px * " + winner + "))";
 
-          setBead(bead.concat({ number: winner, color: colorbut }));
+          setBeadResults(
+            beadResults.concat([{ number: winner, color: colorBlockNumber }])
+          );
 
-          if (plusSum >= 0) {
-            newBeadSum[plusSum].sum = beadSum[plusSum].sum + 1;
-            setBeadSum(newBeadSum);
-          }
-
-          setBetDetail(newBetDetail);
+          setBeadCount(newBeadCount);
+          setBetKeysAPI(newBetKeysAPI);
           setRolling(false);
-          setFinalBet(current);
-          setHistory([[]]);
-          show();
+          setFinalBet(currentChip);
+          setChipHistory([[]]);
+          showHistoryDetail();
         }, 5 * 1000);
       }
     }
   }
 
-  const handleClick = (i: number, val: string) => {
-    const chip = current.slice();
+  const placeChip = (val: string, i: number) => {
+    const chip = currentChip.slice();
     chip[i] = val;
-    setHistory(history.concat([chip]));
+    setChipHistory(chipHistory.concat([chip]));
   };
 
   const undo = () => {
     if (lastIndex > 0) {
-      const newHistory = history.slice(0, lastIndex);
-      setHistory(newHistory);
+      const newHistory = chipHistory.slice(0, lastIndex);
+      setChipHistory(newHistory);
     }
   };
 
-  const show = () => {
-    setShowDetail(true);
+  const showHistoryDetail = () => {
+    setShowHistory(true);
   };
 
-  const hide = () => {
-    setShowDetail(false);
+  const hideHistory = () => {
+    setShowHistory(false);
   };
 
   useEffect(() => {
-    const butNumbet = [
-      { number: "0", color: "green", sum: 0 },
-      { number: "1", color: "red", sum: 0 },
-      { number: "2", color: "black", sum: 0 },
-      { number: "3", color: "red", sum: 0 },
-      { number: "4", color: "black", sum: 0 },
-      { number: "5", color: "red", sum: 0 },
-      { number: "6", color: "black", sum: 0 },
-      { number: "7", color: "red", sum: 0 },
-      { number: "8", color: "black", sum: 0 },
-      { number: "9", color: "red", sum: 0 },
-      { number: "10", color: "black", sum: 0 },
-      { number: "11", color: "black", sum: 0 },
-      { number: "12", color: "red", sum: 0 },
-      { number: "13", color: "black", sum: 0 },
-      { number: "14", color: "red", sum: 0 },
-      { number: "15", color: "black", sum: 0 },
-      { number: "16", color: "red", sum: 0 },
-      { number: "17", color: "black", sum: 0 },
-      { number: "18", color: "red", sum: 0 },
+    const newBeadCount = [
+      { number: "0", color: "green", count: 0 },
+      { number: "1", color: "red", count: 0 },
+      { number: "2", color: "black", count: 0 },
+      { number: "3", color: "red", count: 0 },
+      { number: "4", color: "black", count: 0 },
+      { number: "5", color: "red", count: 0 },
+      { number: "6", color: "black", count: 0 },
+      { number: "7", color: "red", count: 0 },
+      { number: "8", color: "black", count: 0 },
+      { number: "9", color: "red", count: 0 },
+      { number: "10", color: "black", count: 0 },
+      { number: "11", color: "black", count: 0 },
+      { number: "12", color: "red", count: 0 },
+      { number: "13", color: "black", count: 0 },
+      { number: "14", color: "red", count: 0 },
+      { number: "15", color: "black", count: 0 },
+      { number: "16", color: "red", count: 0 },
+      { number: "17", color: "black", count: 0 },
+      { number: "18", color: "red", count: 0 },
     ];
-    setBeadSum(butNumbet);
+    setBeadCount(newBeadCount);
   }, []);
 
   return (
@@ -155,17 +154,20 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
               alt="logoWaRette"
             />
             <div className="absolute top-20 left-5">
-              <BlockHotCold data={beadSum} beadlength={bead.length} />
+              <BlockHotCold
+                beadCount={beadCount}
+                beadAmount={beadResults.length}
+              />
               <div className="mt-4 title-3">BEAD ROAD</div>
-              <BeadRoad data={bead} />
+              <BeadRoad data={beadResults} />
             </div>
           </BlockSquare>
           <div className="max-w-430 w-full pl-10 pt-5">
             <LastSpin />
             <BoardGame
-              value={current}
+              chip={currentChip}
               rolling={rolling}
-              onClick={(i, val) => handleClick(i, val)}
+              onClick={(val, i) => placeChip(val, i)}
             />
           </div>
         </div>
@@ -175,7 +177,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
               onClick={() => {
                 router.push({ pathname: "/logout" });
               }}
-              type="red"
+              color="red"
               width={64}
             >
               Exit
@@ -183,23 +185,23 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
             <div className="title-0 ml-5">{username}</div>
           </div>
           <div className="flex gap-x-2.5 items-center">
-            <Button onClick={show} type="white" width={106}>
+            <Button onClick={showHistoryDetail} color="white" width={106}>
               Bet Detail
             </Button>
 
-            <Button onClick={undo} type="green" width={76}>
+            <Button onClick={undo} color="green" width={76}>
               Undo
             </Button>
-            <Button onClick={spin} type="yellow" width={150}>
+            <Button onClick={spin} color="yellow" width={150}>
               Spin
             </Button>
           </div>
         </div>
       </div>
       <HistoryDetail
-        show={showDetail}
-        hide={hide}
-        betDetail={betDetail}
+        showHistory={showHistory}
+        hideHistory={hideHistory}
+        betKeysAPI={betKeysAPI}
         finalBet={finalBet}
       />
     </DefaultLayout>

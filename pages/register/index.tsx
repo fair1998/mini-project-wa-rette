@@ -6,18 +6,13 @@ import { useState } from "react";
 import Button from "../../components/Button";
 import withAuthentication from "../../components/constant/withAuthentication";
 
-// type LoginResponse = {
-//   username: string;
-//   password: string;
-//   repassword: string;
-// };
-
 const Register: NextPage = () => {
   const router = useRouter();
 
   const [username, setUsername] = useState<String>("");
   const [password, setPassword] = useState<String>("");
   const [repassword, setRepassword] = useState<String>("");
+  
   const formSubmit = async () => {
     if (password === repassword) {
       await Axios.post("https://roulette.ap.ngrok.io/users", {
@@ -29,12 +24,10 @@ const Register: NextPage = () => {
           router.push({ pathname: "/login" });
         })
         .catch((error) => {
-          alert(
-            "Username นี้มีผู้อื่นใช้แล้ว หรือ รหัสผ่านน้อยกว่า 6 ตัวอักษร"
-          );
+          alert(error.response.data.message);
         });
     } else {
-      alert("รหัสผ่านไม่ตรงกัน");
+      alert("Passwords do not match");
     }
   };
 
@@ -73,7 +66,7 @@ const Register: NextPage = () => {
             />
           </div>
 
-          <Button onClick={formSubmit} type="yellow" width={272}>
+          <Button onClick={formSubmit} color="yellow" width={272}>
             Sign up
           </Button>
 
