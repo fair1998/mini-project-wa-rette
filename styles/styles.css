@@ -275,3 +275,16 @@ button:focus {
   overflow: hidden;
   margin-left: calc(180px - 20px - (760px * 1) - (40px * 0));
 }
+
+.bg-loading {
+  background: url("/bg.png") repeat center center,
+    radial-gradient(
+      circle,
+      rgba(13, 206, 251, 1) 0%,
+      rgba(102, 90, 250, 1) 100%
+    );
+}
+
+.bg-loadingOutside {
+  background-color: #020e43;
+}

@@ -50,7 +50,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
           }
         );
 
-        let newArr = [];
+        const newArr = [];
         newArr.push(data.winner);
         data.addition.map((v: any) => {
           newArr.push(v);

@@ -18,6 +18,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
     const check = detail.find((valDetail: string) => {
       return valDetail === valFinalBet;
     });
+
     if (check) {
       results.push(
         <div key={i} className="wrapper-result ">
@@ -67,11 +68,6 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
             id="scrollbar"
             className="w-340 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
-            {/* {finalBet.map((val: string, i: number) => (
-              <div key={i} className="wrapper-result ">
-                <div className="result">{val}</div>
-              </div>
-            ))} */}
             {results}
           </div>
         </div>

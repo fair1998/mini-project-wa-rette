@@ -106,6 +106,11 @@ module.exports = {
       borderWidth: {
         5: "5px",
       },
+
+      gradientColorStops: (theme) => ({
+        progressBottom: "#F7B628",
+        progressTop: "#FDE232",
+      }),
     },
   },
   variants: {

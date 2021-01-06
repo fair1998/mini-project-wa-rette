@@ -25,7 +25,17 @@ const Login: NextPage = () => {
         username: username,
         password: password,
       }
-    );
+    )
+      // .then(function (response) {
+      //   // setCookie(null, RETTE_TOKEN, response.data.accessToken, {
+      //   //   path: "/",
+      //   //   expires: null,
+      //   // });
+      // })
+      // .catch(function (error) {
+      //   // alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด");
+      // });
+
     setCookie(null, ACCESS_TOKEN, data.accessToken, {
       path: "/",
       expires: null,
