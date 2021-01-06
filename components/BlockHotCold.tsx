@@ -16,7 +16,6 @@ const BlockHotCold: FunctionComponent<IProps> = (props) => {
     });
   }
 
-  console.log("data", data);
   const hot = data.slice(0, beadlength <= 5 ? beadlength : 5);
   const cold = data.slice(
     data.length <= 10 ? 5 : data.length - 5,

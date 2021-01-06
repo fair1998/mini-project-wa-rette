@@ -7,6 +7,7 @@ import { useState } from "react";
 import { setCookie } from "nookies";
 import { ACCESS_TOKEN } from "../../components/constant/cookie";
 import withAuthentication from "../../components/constant/withAuthentication";
+import Loading from "../../components/Loading";
 
 type LoginResponse = {
   accessToken: string;
@@ -14,36 +15,31 @@ type LoginResponse = {
 
 const Login: NextPage = () => {
   const router = useRouter();
-  // console.log("Login");
-  const [username, setUsername] = useState<String>("");
-  const [password, setPassword] = useState<String>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const formSubmit = async () => {
-    const { data } = await Axios.post<LoginResponse>(
-      "https://roulette.ap.ngrok.io/auth/login",
-      {
-        username: username,
-        password: password,
-      }
-    )
-      // .then(function (response) {
-      //   // setCookie(null, RETTE_TOKEN, response.data.accessToken, {
-      //   //   path: "/",
-      //   //   expires: null,
-      //   // });
-      // })
-      // .catch(function (error) {
-      //   // alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด");
-      // });
+    // const { data } = await Axios.post<LoginResponse>(
+    await Axios.post<LoginResponse>("https://roulette.ap.ngrok.io/auth/login", {
+      username: username,
+      password: password,
+    })
+      .then((response) => {
+        setCookie(null, ACCESS_TOKEN, response.data.accessToken, {
+          path: "/",
+          expires: null,
+        });
+        window.location.reload();
+      })
+      .catch((error) => {
+        alert("ชื่อผู้ใช้หรือรหัสผ่านผิดพลาด");
+      });
 
-    setCookie(null, ACCESS_TOKEN, data.accessToken, {
-      path: "/",
-      expires: null,
-    });
-    window.location.reload();
+    //
   };
   return (
     <DefaultLayout>
+      <Loading />
       <div className="align-center h-screen">
         <div>
           <div className="title-1 mb-2">Login</div>

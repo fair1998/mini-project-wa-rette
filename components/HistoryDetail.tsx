@@ -5,17 +5,17 @@ import Button from "./Button";
 interface IProps {
   show: any;
   hide: () => void;
-  detail: any;
+  betDetail: any;
   finalBet: [];
 }
 
 const HistoryDetail: FunctionComponent<IProps> = (props) => {
-  const { show, hide, detail, finalBet } = props;
+  const { show, hide, betDetail, finalBet } = props;
 
   const results = [];
 
   finalBet.map((valFinalBet: any, i: number) => {
-    const check = detail.find((valDetail: string) => {
+    const check = betDetail.find((valDetail: string) => {
       return valDetail === valFinalBet;
     });
 
@@ -54,7 +54,7 @@ const HistoryDetail: FunctionComponent<IProps> = (props) => {
             id="scrollbar"
             className="absolute left-5 top-50 w-340 h-260 grid grid-cols-2 auto-rows-min gap-x-10 gap-y-6 overflow-y-auto pr-5"
           >
-            {detail.map((val: string, i: number) => (
+            {betDetail.map((val: string, i: number) => (
               <div key={i} className="wrapper-result ">
                 <div className="result">{val}</div>
               </div>

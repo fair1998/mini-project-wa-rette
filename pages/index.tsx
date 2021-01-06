@@ -13,6 +13,7 @@ import { ACCESS_TOKEN } from "../components/constant/cookie";
 import { parseCookies } from "nookies";
 import HistoryDetail from "../components/HistoryDetail";
 import BlockHotCold from "../components/BlockHotCold";
+import Loading from "../components/Loading";
 const colorBlock = require("../components/data/colorBlock.json");
 
 interface IndexPageProps {
@@ -28,15 +29,13 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
   const [rolling, setRolling] = useState<boolean>(false);
   const [bead, setBead] = useState<any>([]);
   const [beadSum, setBeadSum] = useState<any>([]);
-  const [detail, setDetail] = useState<any>([]);
+  const [betDetail, setBetDetail] = useState<any>([]);
   const [finalBet, setFinalBet] = useState<[]>([]);
 
   const lastIndex = history.length - 1;
   const current = history[lastIndex];
 
-  console.log("bead", bead);
-
-  async function roll() {
+  async function spin() {
     if (history.length > 1) {
       if (rolling === false) {
         setRolling(true);
@@ -50,18 +49,18 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
           }
         );
 
-        const newArr = [];
-        newArr.push(data.winner);
+        const newBetDetail = [];
+        newBetDetail.push(data.winner);
         data.addition.map((v: any) => {
-          newArr.push(v);
+          newBetDetail.push(v);
         });
 
         const scroll = document.getElementById("scroll");
-        const award = data.winner.substring(11);
+        const winner = data.winner.substring(11);
         let colorbut = null;
 
         for (let i = 0; i < colorBlock.length; i++) {
-          if (award === colorBlock[i].number) {
+          if (winner === colorBlock[i].number) {
             colorbut = colorBlock[i].color;
             break;
           }
@@ -69,25 +68,26 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
 
         const newBeadSum = beadSum.slice();
         const plusSum = newBeadSum.findIndex((val) => {
-          return val.number === award;
+          return val.number === winner;
         });
 
         scroll.style.transition = "margin 5s ease";
         scroll.style.marginLeft =
-          "calc(180px - 20px - (760px * 6) - (40px * " + award + "))";
+          "calc(180px - 20px - (760px * 6) - (40px * " + winner + "))";
 
         await setTimeout(function () {
           scroll.style.transition = "margin 0s ease";
           scroll.style.marginLeft =
-            "calc(180px - 20px - (760px * 1) - (40px * " + award + "))";
+            "calc(180px - 20px - (760px * 1) - (40px * " + winner + "))";
 
-          setBead(bead.concat({ number: award, color: colorbut }));
+          setBead(bead.concat({ number: winner, color: colorbut }));
+
           if (plusSum >= 0) {
             newBeadSum[plusSum].sum = beadSum[plusSum].sum + 1;
             setBeadSum(newBeadSum);
           }
 
-          setDetail(newArr);
+          setBetDetail(newBetDetail);
           setRolling(false);
           setFinalBet(current);
           setHistory([[]]);
@@ -145,6 +145,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
 
   return (
     <DefaultLayout>
+      <Loading />
       <div className="wrapper-game">
         <div className="flex flex-row">
           <BlockSquare>
@@ -189,7 +190,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
             <Button onClick={undo} type="green" width={76}>
               Undo
             </Button>
-            <Button onClick={roll} type="yellow" width={150}>
+            <Button onClick={spin} type="yellow" width={150}>
               Spin
             </Button>
           </div>
@@ -198,7 +199,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
       <HistoryDetail
         show={showDetail}
         hide={hide}
-        detail={detail}
+        betDetail={betDetail}
         finalBet={finalBet}
       />
     </DefaultLayout>

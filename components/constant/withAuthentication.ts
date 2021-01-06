@@ -50,7 +50,6 @@ export default async function withAuthentication(
         },
       }
     );
-    console.log("userxxxxxxxxxxxxxxx", user);
     if (status === 200) {
       return user;
     }
@@ -80,7 +79,6 @@ export default async function withAuthentication(
     const forward = req.url || "/";
     ctx.res.statusCode = 307;
     ctx.res.setHeader("Location", `/login?forward=${forward}`);
-    console.log("errorsssssss", error.message);
     return null;
   }
 }

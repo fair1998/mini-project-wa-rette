@@ -13,7 +13,6 @@ import withAuthentication from "../../components/constant/withAuthentication";
 // };
 
 const Register: NextPage = () => {
-  console.log("Register");
   const router = useRouter();
 
   const [username, setUsername] = useState<String>("");
@@ -25,15 +24,17 @@ const Register: NextPage = () => {
         username: username,
         password: password,
       })
-        .then(function (response) {
-          console.log(response);
-          window.location.reload();
+        .then((response) => {
+          console.log("response", response);
+          router.push({ pathname: "/login" });
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch((error) => {
+          alert(
+            "Username นี้มีผู้อื่นใช้แล้ว หรือ รหัสผ่านน้อยกว่า 6 ตัวอักษร"
+          );
         });
     } else {
-      console.log("error");
+      alert("รหัสผ่านไม่ตรงกัน");
     }
   };
 

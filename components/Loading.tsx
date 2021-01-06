@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 
-const PageLoader: FunctionComponent = (props) => {
+const Loading: FunctionComponent = (props) => {
   const [loading, setLoading] = useState(true);
   const [width, setWidth] = useState(0);
 
@@ -21,7 +21,7 @@ const PageLoader: FunctionComponent = (props) => {
 
   return (
     <div
-      className={`flex fixed top-0 left-0 right-0 justify-center text-center flex-col min-w-max min-h-screen z-10 bg-loading  transition-all duration-700 ${
+      className={`flex fixed top-0 left-0 right-0 justify-center text-center flex-col min-w-max min-h-screen z-50 bg-loading  transition-all duration-700 ${
         loading === true ? "visible opacity-100 " : "invisible opacity-0 "
       }`}
     >
@@ -39,4 +39,4 @@ const PageLoader: FunctionComponent = (props) => {
   );
 };
 
-export default PageLoader;
+export default Loading;
