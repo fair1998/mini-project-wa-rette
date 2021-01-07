@@ -17,7 +17,7 @@ const BeadRoad: FunctionComponent<BeadRoadProps> = (props) => {
               {val.number}
             </BlockNumber>
           ))}
-        <BlockNumber size="xs" color="null" />
+        <BlockNumber size="xs" color="dotted " />
       </div>
     </div>
   );

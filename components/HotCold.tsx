@@ -7,15 +7,15 @@ interface HotColdProps {
 const HotCold: FunctionComponent<HotColdProps> = (props) => {
   const { children, type } = props;
   return (
-    <div className={`relative hotcold ${type === "hot" ? "w-190" : "w-200"}`}>
+    <div className={`relative hotCold ${type === "hot" ? "w-190" : "w-200"}`}>
       <div
-        className={`absolute bg-hotcold-${
+        className={`absolute bg-hotCold-${
           type === "hot" ? "hot w-188" : "cold w-198"
         }`}
       />
-      <div className="absolute side-hotcold" />
-      <div className="absolute bg-side-hotcold" />
-      <div className="absolute -top-44 left-1 icon-hotcold">
+      <div className="absolute side-hotCold" />
+      <div className="absolute bg-side-hotCold" />
+      <div className="absolute -top-44 left-1 icon-hotCold">
         {type === "hot" ? (
           <img src="fire.svg" alt="fire" />
         ) : (

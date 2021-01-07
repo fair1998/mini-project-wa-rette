@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 
 interface BlockNumberProps {
-  color: "red" | "blue" | "black" | "green" | "null";
+  color: "red" | "blue" | "black" | "green" | "dotted " | "null";
   size: "xs" | "sm" | "md";
   className?: string;
 }
@@ -19,7 +19,9 @@ const BlockNumber: FunctionComponent<BlockNumberProps> = (props) => {
           ? "bg-blue"
           : color === "green"
           ? "bg-green"
-          : "border-dotted-white-30 bg-blue-700"
+          : color === "dotted "
+          ? "border-dotted-white-30 bg-blue-700"
+          : "border-none box-shadow-none"
       } ${
         size === "xs"
           ? "w-5 h-4"

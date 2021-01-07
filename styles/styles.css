@@ -144,6 +144,7 @@ button:focus {
   @apply text-fs9;
   @apply text-white;
 }
+
 .result {
   @apply flex;
   @apply items-center;
@@ -166,19 +167,7 @@ button:focus {
   @apply pl-5;
   @apply pr-7;
 }
-.btn-gmae {
-  @apply flex;
-  @apply justify-center;
-  @apply items-center;
-  @apply text-fs12;
-  @apply font-bold;
-  @apply text-white;
-  @apply border-blue-600;
-  @apply rounded;
-  @apply border;
-  @apply w-11;
-  @apply h-9;
-}
+
 .last-spin {
   @apply flex;
   @apply justify-center;
@@ -197,6 +186,9 @@ button:focus {
 
 .box-shadow-black-16 {
   box-shadow: 1px 1px 0px rgba(2, 14, 67, 0.16);
+}
+.box-shadow-none {
+  box-shadow: none;
 }
 .text-shadow-black-56 {
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.56);
@@ -217,32 +209,32 @@ button:focus {
   border-top: 339px solid #145bc6;
   border-right: 50px solid transparent;
 }
-.hotcold {
+.hotCold {
   border-top: 48px solid #020e43;
   border-right: 15px solid transparent;
   filter: drop-shadow(3px 3px 1px rgba(0, 0, 0, 0.16));
 }
-.bg-hotcold {
+.bg-hotCold {
   top: -47px;
   left: 1px;
   border-right: 15px solid transparent;
 }
-.bg-hotcold-hot {
-  @apply bg-hotcold;
+.bg-hotCold-hot {
+  @apply bg-hotCold;
   border-top: 46px solid #f63c1f;
 }
-.bg-hotcold-cold {
-  @apply bg-hotcold;
+.bg-hotCold-cold {
+  @apply bg-hotCold;
   border-top: 46px solid #2876e3;
 }
-.side-hotcold {
+.side-hotCold {
   border-top: 46px solid #020e43;
   border-right: 10px solid transparent;
   width: 25px;
   top: -47px;
   left: 0px;
 }
-.bg-side-hotcold {
+.bg-side-hotCold {
   border-top: 46px solid #fde232;
   border-right: 10px solid transparent;
   width: 23px;

@@ -36,63 +36,61 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
   const currentChip = chipHistory[lastIndex];
 
   async function spin() {
-    if (chipHistory.length > 1) {
-      if (rolling === false) {
-        setRolling(true);
+    if (rolling === false) {
+      setRolling(true);
 
-        const { data } = await Axios.get(
-          "https://roulette.ap.ngrok.io/roulette/result",
-          {
-            headers: {
-              Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
-            },
-          }
+      const { data } = await Axios.get(
+        "https://roulette.ap.ngrok.io/roulette/result",
+        {
+          headers: {
+            Authorization: "Bearer " + parseCookies()[ACCESS_TOKEN],
+          },
+        }
+      );
+
+      const newBetKeysAPI = [];
+      newBetKeysAPI.push(data.winner);
+      data.addition.map((val: string) => {
+        newBetKeysAPI.push(val);
+      });
+
+      const scroll = document.getElementById("scroll");
+      const winner: string = data.winner.substring(11);
+      let colorBlockNumber = null;
+
+      for (let i = 0; i < ColorNumber.length; i++) {
+        if (winner === ColorNumber[i].number) {
+          colorBlockNumber = ColorNumber[i].color;
+          break;
+        }
+      }
+
+      const newBeadCount = beadCount.slice();
+      const numberIndex = newBeadCount.findIndex((val) => {
+        return val.number === winner;
+      });
+      newBeadCount[numberIndex].count = beadCount[numberIndex].count + 1;
+
+      scroll.style.transition = "margin 5s ease";
+      scroll.style.marginLeft =
+        "calc(180px - 20px - (760px * 6) - (40px * " + winner + "))";
+
+      await setTimeout(() => {
+        scroll.style.transition = "margin 0s ease";
+        scroll.style.marginLeft =
+          "calc(180px - 20px - (760px * 1) - (40px * " + winner + "))";
+
+        setBeadResults(
+          beadResults.concat([{ number: winner, color: colorBlockNumber }])
         );
 
-        const newBetKeysAPI = [];
-        newBetKeysAPI.push(data.winner);
-        data.addition.map((val: string) => {
-          newBetKeysAPI.push(val);
-        });
-
-        const scroll = document.getElementById("scroll");
-        const winner: string = data.winner.substring(11);
-        let colorBlockNumber = null;
-
-        for (let i = 0; i < ColorNumber.length; i++) {
-          if (winner === ColorNumber[i].number) {
-            colorBlockNumber = ColorNumber[i].color;
-            break;
-          }
-        }
-
-        const newBeadCount = beadCount.slice();
-        const numberIndex = newBeadCount.findIndex((val) => {
-          return val.number === winner;
-        });
-        newBeadCount[numberIndex].count = beadCount[numberIndex].count + 1;
-
-        scroll.style.transition = "margin 5s ease";
-        scroll.style.marginLeft =
-          "calc(180px - 20px - (760px * 6) - (40px * " + winner + "))";
-
-        await setTimeout(() => {
-          scroll.style.transition = "margin 0s ease";
-          scroll.style.marginLeft =
-            "calc(180px - 20px - (760px * 1) - (40px * " + winner + "))";
-
-          setBeadResults(
-            beadResults.concat([{ number: winner, color: colorBlockNumber }])
-          );
-
-          setBeadCount(newBeadCount);
-          setBetKeysAPI(newBetKeysAPI);
-          setRolling(false);
-          setFinalBet(currentChip);
-          setChipHistory([[]]);
-          showHistoryDetail();
-        }, 5 * 1000);
-      }
+        setBeadCount(newBeadCount);
+        setBetKeysAPI(newBetKeysAPI);
+        setRolling(false);
+        setFinalBet(currentChip);
+        setChipHistory([[]]);
+        showHistoryDetail();
+      }, 5 * 1000);
     }
   }
 
@@ -145,7 +143,8 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
   return (
     <DefaultLayout>
       <Loading />
-      <div className="wrapper-game lg:transform lg:rotate-90 lg:p-0 lg:absolute lg:top-0 lg:bottom-0  lg:right-0">
+      <div className="wrapper-game">
+        {/* <div className="wrapper-game lg:transform lg:rotate-90 lg:p-0 lg:absolute lg:top-0 lg:bottom-0  lg:right-0"> */}
         <div className="flex flex-row">
           <BlockSquare>
             <img
@@ -165,6 +164,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
           <div className="max-w-430 w-full pl-10 pt-5">
             <LastSpin />
             <BoardGame
+              betKeysAPI={betKeysAPI}
               chip={currentChip}
               rolling={rolling}
               onClick={(val, i) => placeChip(val, i)}

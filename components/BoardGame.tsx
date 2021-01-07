@@ -6,108 +6,87 @@ interface BoardGameProps {
   onClick: (val: string, i: number) => void;
   chip: any;
   rolling: boolean;
+  betKeysAPI: any;
 }
 
+const boardBlockNumber = [
+  {
+    number: "0",
+    value: "STRAIGHTUPx0",
+    color: "green",
+    className: "row-span-3 h-auto",
+  },
+  { number: "3", value: "STRAIGHTUPx3", color: "red", className: "" },
+  { number: "6", value: "STRAIGHTUPx6", color: "black", className: "" },
+  { number: "9", value: "STRAIGHTUPx9", color: "red", className: "" },
+  { number: "12", value: "STRAIGHTUPx12", color: "red", className: "" },
+  { number: "15", value: "STRAIGHTUPx15", color: "black", className: "" },
+  { number: "18", value: "STRAIGHTUPx18", color: "red", className: "" },
+  { number: "1:2", value: "COLUMNx3rd", color: "blue", className: "" },
+  { number: "2", value: "STRAIGHTUPx2", color: "black", className: "" },
+  { number: "5", value: "STRAIGHTUPx5", color: "red", className: "" },
+  { number: "8", value: "STRAIGHTUPx8", color: "black", className: "" },
+  { number: "11", value: "STRAIGHTUPx11", color: "black", className: "" },
+  { number: "14", value: "STRAIGHTUPx14", color: "red", className: "" },
+  { number: "17", value: "STRAIGHTUPx17", color: "black", className: "" },
+  { number: "1:2", value: "COLUMNx2nd", color: "blue", className: "" },
+  { number: "1", value: "STRAIGHTUPx1", color: "red", className: "" },
+  { number: "4", value: "STRAIGHTUPx4", color: "black", className: "" },
+  { number: "7", value: "STRAIGHTUPx7", color: "red", className: "" },
+  { number: "10", value: "STRAIGHTUPx10", color: "black", className: "" },
+  { number: "13", value: "STRAIGHTUPx13", color: "black", className: "" },
+  { number: "16", value: "STRAIGHTUPx16", color: "red", className: "" },
+  { number: "1:2", value: "COLUMNx1st", color: "blue", className: "" },
+  { number: "", value: "", color: "null", className: "row-span-2" },
+  {
+    number: "1st",
+    value: "DOZENx1st",
+    color: "blue",
+    className: "col-span-2 w-auto",
+  },
+  {
+    number: "2nd",
+    value: "DOZENx2nd",
+    color: "blue",
+    className: "col-span-2 w-auto",
+  },
+  {
+    number: "3rd",
+    value: "DOZENx3rd",
+    color: "blue",
+    className: "col-span-2 w-auto",
+  },
+  { number: "", value: "", color: "null", className: "row-span-2" },
+  { number: "1-9", value: "HALFxSMALL", color: "blue", className: "" },
+  { number: "Even", value: "HALFxEVEN", color: "blue", className: "" },
+  { number: "", value: "HALFxRED", color: "red", className: "" },
+  { number: "", value: "HALFxBLACK", color: "black", className: "" },
+  { number: "Odd", value: "HALFxODD", color: "blue", className: "" },
+  { number: "10-18", value: "HALFxBIG", color: "blue", className: "" },
+];
+
 const BoardGame: FunctionComponent<BoardGameProps> = (props) => {
-  const { onClick, chip, rolling } = props;
+  const { onClick, chip, rolling, betKeysAPI } = props;
   return (
     <div className="relative ">
       <div className="absolute grid grid-cols-8 gap-1 text-fs12 w-380">
-        <BlockNumber
-          color="green"
-          size="md"
-          className="btn-gmae row-span-3 h-auto"
-        >
-          0
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          3
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          6
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          9
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          12
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          15
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          18
-        </BlockNumber>
-        <BlockNumber color="blue" size="md">
-          1:2
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          2
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          5
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          8
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          11
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          14
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          17
-        </BlockNumber>
-        <BlockNumber color="blue" size="md">
-          1:2
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          1
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          4
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          7
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          10
-        </BlockNumber>
-        <BlockNumber color="black" size="md">
-          13
-        </BlockNumber>
-        <BlockNumber color="red" size="md">
-          16
-        </BlockNumber>
-        <BlockNumber color="blue" size="md">
-          1:2
-        </BlockNumber>
-        <div className="row-span-2" />
-        <BlockNumber color="blue" size="md" className="col-span-2 w-auto">
-          1st
-        </BlockNumber>
-        <BlockNumber color="blue" size="md" className="col-span-2 w-auto">
-          2nd
-        </BlockNumber>
-        <BlockNumber color="blue" size="md" className="col-span-2 w-auto">
-          3rd
-        </BlockNumber>
-        <div className="row-span-2" />
-        <BlockNumber color="blue" size="md">
-          1-9
-        </BlockNumber>
-        <BlockNumber color="blue" size="md">
-          Even
-        </BlockNumber>
-        <BlockNumber color="red" size="md" />
-        <BlockNumber color="black" size="md" />
-        <BlockNumber color="blue" size="md">
-          Odd
-        </BlockNumber>
-        <BlockNumber color="blue" size="md">
-          10-18
-        </BlockNumber>
+        {boardBlockNumber.map((valueBlock: any, i: number) => {
+          const check = betKeysAPI.find((valueAPI: string) => {
+            return valueAPI === valueBlock.value;
+          });
+          return (
+            <BlockNumber
+              key={i}
+              color={valueBlock.color}
+              size="md"
+              className={`${valueBlock.className} ${
+                check && "border-white border-2"
+              }`}
+            >
+              {valueBlock.number}
+            </BlockNumber>
+          );
+        })}
       </div>
 
       {ChipPosition.map((val: any, i: number) => (

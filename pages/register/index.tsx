@@ -11,10 +11,10 @@ const Register: NextPage = () => {
 
   const [username, setUsername] = useState<String>("");
   const [password, setPassword] = useState<String>("");
-  const [repassword, setRepassword] = useState<String>("");
-  
+  const [confirmPassword, setConfirmPassword] = useState<String>("");
+
   const formSubmit = async () => {
-    if (password === repassword) {
+    if (password === confirmPassword) {
       await Axios.post("https://roulette.ap.ngrok.io/users", {
         username: username,
         password: password,
@@ -59,9 +59,9 @@ const Register: NextPage = () => {
           <div className="mb-8">
             <input
               type="password"
-              name="repassword"
+              name="confirmPassword"
               placeholder="Re Password"
-              onChange={(e) => setRepassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="input-password"
             />
           </div>
