@@ -73,12 +73,12 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
 
       scroll.style.transition = "margin 5s ease";
       scroll.style.marginLeft =
-        "calc(180px - 20px - (760px * 6) - (40px * " + winner + "))";
+        "calc(180px - 22px - (836px * 6) - (44px * " + winner + "))";
 
       await setTimeout(() => {
         scroll.style.transition = "margin 0s ease";
         scroll.style.marginLeft =
-          "calc(180px - 20px - (760px * 1) - (40px * " + winner + "))";
+          "calc(180px - 22px - (836px * 1) - (44px * " + winner + "))";
 
         setBeadResults(
           beadResults.concat([{ number: winner, color: colorBlockNumber }])
@@ -89,7 +89,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
         setRolling(false);
         setFinalBet(currentChip);
         setChipHistory([[]]);
-        showHistoryDetail();
+        // showHistoryDetail();
       }, 5 * 1000);
     }
   }
@@ -142,7 +142,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
 
   return (
     <DefaultLayout>
-      <Loading />
+      {/* <Loading /> */}
       <div className="wrapper-game">
         {/* <div className="wrapper-game lg:transform lg:rotate-90 lg:p-0 lg:absolute lg:top-0 lg:bottom-0  lg:right-0"> */}
         <div className="flex flex-row">

@@ -265,11 +265,11 @@ button:focus {
 .scroll {
   display: flex;
   flex-direction: row;
-  width: calc(760px * 8);
+  width: calc(836px * 8);
   height: 30px;
   margin: 0 auto;
   overflow: hidden;
-  margin-left: calc(180px - 20px - (760px * 1) - (40px * 0));
+  margin-left: calc(180px - 22px - (836px * 1) - (44px * 0));
 }
 
 .bg-loading {
