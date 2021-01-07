@@ -145,7 +145,7 @@ const IndexPage: NextPage<IndexPageProps> = (props) => {
   return (
     <DefaultLayout>
       <Loading />
-      <div className="wrapper-game">
+      <div className="wrapper-game lg:transform lg:rotate-90 lg:p-0 lg:absolute lg:top-0 lg:bottom-0  lg:right-0">
         <div className="flex flex-row">
           <BlockSquare>
             <img
